@@ -106,7 +106,7 @@ public class Grid : MonoBehaviour {
 
     // Draw items in the editor view (not visible in game view)
     void OnDrawGizmos() {
-       /* // Draw wireframe around the grid map
+        // Draw wireframe around the grid map
         Gizmos.DrawWireCube(centerOfMap, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
 
         // If bool is checked
@@ -144,6 +144,6 @@ public class Grid : MonoBehaviour {
                     Gizmos.DrawCube(node.worldPosition_, Vector3.one * (nodeDiameter - .1f));
                 }
             }
-        }*/
+        }
     }
 }

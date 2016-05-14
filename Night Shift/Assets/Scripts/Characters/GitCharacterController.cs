@@ -3,13 +3,17 @@ using System.Collections.Generic;
 
 public abstract class GitCharacterController : MonoBehaviour {
 
-    public float speed = 15.0f;
+    public float speed = 10.0f;
     public float turnSpeed = 10.0f;
-    protected Vector3 target;
+    private Vector3 target;
+    protected Queue<Vector3> targetQueue = new Queue<Vector3>();
     protected PathFinding pathFinding;
     protected List<Node> path = new List<Node>();
     protected int nextPosition = 0;
-    protected bool targetChanged = false;
+
+    protected 
+    
+    private bool nextTarget = true;
 
     protected Animator animationController;
 
@@ -43,12 +47,45 @@ public abstract class GitCharacterController : MonoBehaviour {
         }
     }
 
-    protected void MoveToPosition(Vector3 destination)
+    protected void addTarget(Vector3 newTarget)
     {
-        if (targetChanged)
+        targetQueue.Enqueue(newTarget);
+    }
+
+    protected Vector3 getNextTarget()
+    {
+        if(targetQueue.Count > 0)
         {
-            path = pathFinding.FindPath(transform.position, destination);
-            targetChanged = false;
+            return targetQueue.Dequeue();
+        }
+        return new Vector3(-1000,-1000,-1000);
+    }
+
+    protected void clearTargets()
+    {
+        targetQueue.Clear();
+        nextTarget = true;
+    }
+
+    protected virtual void collidedWith(GameObject collidedObject)
+    {
+    }
+
+    protected void MoveToPosition()
+    {
+        Vector3 destination = target;
+
+        if (nextTarget)
+        {
+            destination = getNextTarget();
+            if (!destination.Equals(new Vector3(-1000, -1000, -1000)))
+            {
+                path = pathFinding.FindPath(transform.position, destination);
+                if (path.Count != 0)
+                {
+                    nextTarget = false;
+                }
+            }
         }
 
 
@@ -59,15 +96,13 @@ public abstract class GitCharacterController : MonoBehaviour {
             // If we haven't reached our goal yet
             if (nextPosition < path.Count)
             {
+                var nextPos = path[nextPosition].worldPosition_;
+                nextPos.z = transform.position.z;
                 // If we haven't reached the position of this node
-                if (transform.position != path[nextPosition].worldPosition_)
+                if (transform.position != nextPos)
                 {
-                    var nextPos = path[nextPosition].worldPosition_;
-                    nextPos.z = transform.position.z;
                     RotateToPoint(transform.position, nextPos);
                     transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
-
-
                 }
                 else
                 {
@@ -75,8 +110,6 @@ public abstract class GitCharacterController : MonoBehaviour {
                     nextPosition++;
                     if (nextPosition < path.Count)
                     {
-                        var nextPos = path[nextPosition].worldPosition_;
-                        nextPos.z = transform.position.z;
                         RotateToPoint(transform.position, nextPos);
                         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
                     }
@@ -87,6 +120,7 @@ public abstract class GitCharacterController : MonoBehaviour {
                 // We reached our goal, we can reset the path
                 path = new List<Node>();
                 nextPosition = 0;
+                nextTarget = true;
                 animationController.SetBool("Moving", false);
             }
         }

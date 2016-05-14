@@ -5,7 +5,11 @@ namespace Assets.Scripts
 {
     public class BasePatientSpawner : MonoBehaviour {
         
-        public Patient patientPrefab;
+        public Patient patientKnifePrefab;
+        public Patient patientCrazyPrefab;
+        public Patient patientBloodPrefab;
+        public Patient patientVomitPrefab;
+        public Patient patientPossessedPrefab;
 
         // Use this for initialization
         void Start() {

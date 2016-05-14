@@ -7,6 +7,7 @@ public class Player : GitCharacterController
     void Start()
     {
         initialize();
+        speed = 20.0f;
     }
 
     // Update is called once per frame
@@ -15,11 +16,11 @@ public class Player : GitCharacterController
         // Mouse button 0 is left click
         if (Input.GetMouseButton(0))
         {
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            target.z = transform.position.z;
-            targetChanged = true;
+            var newTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            newTarget.z = transform.position.z;
+            addTarget(newTarget);
         }
 
-        MoveToPosition(target);
+        MoveToPosition();
     }
 }
