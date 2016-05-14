@@ -2,19 +2,19 @@
 using System.Collections;
 using Assets.Scripts;
 
-public class Patient : MonoBehaviour {
+public class Patient : GitCharacterController
+{
 
     public PatientState State;
     public PatientWounds Wound;
-
-    public Patient(PatientState state, PatientWounds wound) {
-        State = state;
-        Wound = wound;
-    }
-
+    
     // Use this for initialization
     void Start () {
+        initialize();
         var spriteRenderer = GetComponent<SpriteRenderer>();
+
+        var sprite = new Sprite();
+
         // Change sprite according to illness
         switch (Wound)
         {

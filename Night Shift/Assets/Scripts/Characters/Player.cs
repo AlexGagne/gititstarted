@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class Player : CharacterController
+public class Player : GitCharacterController
 {
     // Use this for initialization
     void Start()
@@ -17,6 +17,7 @@ public class Player : CharacterController
         {
             target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
             target.z = transform.position.z;
+            targetChanged = true;
         }
 
         MoveToPosition(target);

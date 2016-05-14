@@ -1,14 +1,14 @@
 fileFormatVersion: 2
-guid: 87f065c980a585241a778b6652927fcc
-timeCreated: 1463244104
+guid: 4cddc10a108cb1545bbac4be59a50602
+timeCreated: 1463247472
 licenseType: Free
 TextureImporter:
   fileIDToRecycleName:
-    21300000: Ruan_Mop_0
-    21300002: Ruan_Mop_1
-    21300004: Ruan_Mop_2
-    21300006: Ruan_Mop_3
-    21300008: Ruan_Mop_4
+    21300000: Juan_Mop 1_0
+    21300002: Juan_Mop 1_1
+    21300004: Juan_Mop 1_2
+    21300006: Juan_Mop 1_3
+    21300008: Juan_Mop 1_4
   serializedVersion: 2
   mipmaps:
     mipMapMode: 0
@@ -55,7 +55,7 @@ TextureImporter:
   buildTargetSettings: []
   spriteSheet:
     sprites:
-    - name: Ruan_Mop_0
+    - name: Juan_Mop 1_0
       rect:
         serializedVersion: 2
         x: 0
@@ -75,7 +75,7 @@ TextureImporter:
         - {x: 13.552, y: 1.4799995}
         - {x: 13.552, y: 9.48}
         - {x: 7.552, y: 12.48}
-    - name: Ruan_Mop_1
+    - name: Juan_Mop 1_1
       rect:
         serializedVersion: 2
         x: 32
@@ -94,7 +94,7 @@ TextureImporter:
         - {x: 12.552002, y: -1.5200005}
         - {x: 13.552002, y: 7.4799995}
         - {x: 13.552002, y: 12.48}
-    - name: Ruan_Mop_2
+    - name: Juan_Mop 1_2
       rect:
         serializedVersion: 2
         x: 64
@@ -115,7 +115,7 @@ TextureImporter:
         - {x: 13.552002, y: -3.5200005}
         - {x: 13.552002, y: 9.48}
         - {x: 7.552002, y: 12.48}
-    - name: Ruan_Mop_3
+    - name: Juan_Mop 1_3
       rect:
         serializedVersion: 2
         x: 96
@@ -133,7 +133,7 @@ TextureImporter:
         - {x: 13.552002, y: -8.52}
         - {x: 13.552002, y: 10.48}
         - {x: 11.552002, y: 12.48}
-    - name: Ruan_Mop_4
+    - name: Juan_Mop 1_4
       rect:
         serializedVersion: 2
         x: 128

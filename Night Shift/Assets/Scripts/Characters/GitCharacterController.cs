@@ -1,7 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public abstract class CharacterController : MonoBehaviour {
+public abstract class GitCharacterController : MonoBehaviour {
 
     public float speed = 15.0f;
     public float turnSpeed = 10.0f;
@@ -9,8 +9,10 @@ public abstract class CharacterController : MonoBehaviour {
     protected PathFinding pathFinding;
     protected List<Node> path = new List<Node>();
     protected int nextPosition = 0;
-    
-    
+    protected bool targetChanged = false;
+
+    private Animator animationController;
+
     // Use this for initialization
     void Start () {
     }
@@ -24,6 +26,8 @@ public abstract class CharacterController : MonoBehaviour {
     {
         target = transform.position;
         pathFinding = GetComponent<PathFinding>();
+        animationController = GetComponent<Animator>();
+        animationController.SetBool("Moving", false);
     }
 
     private void RotateToPoint(Vector3 origin, Vector3 destination)
@@ -41,15 +45,17 @@ public abstract class CharacterController : MonoBehaviour {
 
     protected void MoveToPosition(Vector3 destination)
     {
-        var tempPath = pathFinding.FindPath(transform.position, destination);
-        if (tempPath.Count != 0)
+        if (targetChanged)
         {
-            path = tempPath;
+            path = pathFinding.FindPath(transform.position, destination);
+            targetChanged = false;
         }
+
 
         // If a path is available to move
         if (path.Count != 0)
         {
+            animationController.SetBool("Moving", true);
             // If we haven't reached our goal yet
             if (nextPosition < path.Count)
             {
@@ -79,6 +85,7 @@ public abstract class CharacterController : MonoBehaviour {
                 // We reached our goal, we can reset the path
                 path = new List<Node>();
                 nextPosition = 0;
+                animationController.SetBool("Moving", false);
             }
         }
     }
