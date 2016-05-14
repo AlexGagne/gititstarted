@@ -1,28 +1,50 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 
-public class CharacterController : MonoBehaviour {
+public abstract class CharacterController : MonoBehaviour {
 
     public float speed = 15.0f;
-    private Vector3 target;
-    private PathFinding pathFinding;
-    private List<Node> path = new List<Node>();
-    private int nextPosition = 0;
-
+    public float turnSpeed = 10.0f;
+    protected Vector3 target;
+    protected PathFinding pathFinding;
+    protected List<Node> path = new List<Node>();
+    protected int nextPosition = 0;
+    
+    
     // Use this for initialization
     void Start () {
-        target = transform.position;
-        pathFinding = GetComponent<PathFinding>();
     }
 	
 	// Update is called once per frame
 	void Update () {
-        // Mouse button 0 is left click
-        if(Input.GetMouseButton(0)) {
-            target = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            target.z = transform.position.z;
 
-            path = pathFinding.FindPath(transform.position, target);
+    }
+
+    protected void initialize()
+    {
+        target = transform.position;
+        pathFinding = GetComponent<PathFinding>();
+    }
+
+    private void RotateToPoint(Vector3 origin, Vector3 destination)
+    {
+        var direction = destination - origin;
+
+        if (direction != Vector3.zero)
+        {
+            direction.Normalize();
+            float correction = -90.0f;
+            float angle = correction + (Mathf.Atan2(direction.y, direction.x)) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.Euler(0, 0, angle), turnSpeed * Time.deltaTime);
+        }
+    }
+
+    protected void MoveToPosition(Vector3 destination)
+    {
+        var tempPath = pathFinding.FindPath(transform.position, destination);
+        if (tempPath.Count != 0)
+        {
+            path = tempPath;
         }
 
         // If a path is available to move
@@ -35,7 +57,10 @@ public class CharacterController : MonoBehaviour {
                 if (transform.position != path[nextPosition].worldPosition_)
                 {
                     var nextPos = path[nextPosition].worldPosition_;
+                    RotateToPoint(transform.position, nextPos);
                     transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
+
+
                 }
                 else
                 {
@@ -44,6 +69,7 @@ public class CharacterController : MonoBehaviour {
                     if (nextPosition < path.Count)
                     {
                         var nextPos = path[nextPosition].worldPosition_;
+                        RotateToPoint(transform.position, nextPos);
                         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
                     }
                 }
