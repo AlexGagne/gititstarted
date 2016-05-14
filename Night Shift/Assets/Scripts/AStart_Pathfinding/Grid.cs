@@ -16,6 +16,8 @@ public class Grid : MonoBehaviour {
 
     public List<Node> path;
 
+    private readonly Vector3 centerOfMap = new Vector3(0, 0, 0);
+
     // Public accessor
     public int MaxSize {
         get { return gridSizeX * gridSizeY; }
@@ -39,7 +41,7 @@ public class Grid : MonoBehaviour {
         // Initialise a 2d array of node
         grid = new Node[gridSizeX, gridSizeY];
         // Find the bottom-left position of the grid in game-view
-        Vector3 worldBottomLeft = transform.position - Vector3.right * gridWorldSize.x/2 - Vector3.up * gridWorldSize.y/2;
+        Vector3 worldBottomLeft = centerOfMap - Vector3.right * gridWorldSize.x/2 - Vector3.up * gridWorldSize.y/2;
 
         // For every position in the grid...
         for (int x = 0; x < gridSizeX; x++) {
@@ -105,7 +107,7 @@ public class Grid : MonoBehaviour {
     // Draw items in the editor view (not visible in game view)
     void OnDrawGizmos() {
         // Draw wireframe around the grid map
-        Gizmos.DrawWireCube(transform.position, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
+        Gizmos.DrawWireCube(centerOfMap, new Vector3(gridWorldSize.x, 1, gridWorldSize.y));
 
         // If bool is checked
         if (onlyShowPathGizmos) {
