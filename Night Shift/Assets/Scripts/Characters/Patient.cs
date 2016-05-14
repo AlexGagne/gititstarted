@@ -17,25 +17,53 @@ public class Patient : GitCharacterController
         switch (Wound)
         {
             case PatientWounds.Healthy:
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/patient");
+                animationController.SetBool("Bleeding", false);
+                animationController.SetBool("Knife", false);
+                animationController.SetBool("Sick", false);
+                animationController.SetBool("Healthy", true);
+                animationController.SetBool("Dead", false);
                 break;
             case PatientWounds.Dead:
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/patient");
+                animationController.SetBool("Bleeding", false);
+                animationController.SetBool("Knife", false);
+                animationController.SetBool("Sick", false);
+                animationController.SetBool("Healthy", false);
+                animationController.SetBool("Dead", true);
                 break;
             case PatientWounds.Hemorhagie:
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/patient");
+                animationController.SetBool("Bleeding", false);
+                animationController.SetBool("Knife", false);
+                animationController.SetBool("Sick", false);
+                animationController.SetBool("Healthy", false);
+                animationController.SetBool("Dead", true);
                 break;
             case PatientWounds.Psychology:
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/patient");
+                animationController.SetBool("Bleeding", false);
+                animationController.SetBool("Knife", false);
+                animationController.SetBool("Sick", false);
+                animationController.SetBool("Healthy", false);
+                animationController.SetBool("Dead", false);
                 break;
             case PatientWounds.Vomitorium:
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/patient");
+                animationController.SetBool("Bleeding", false);
+                animationController.SetBool("Knife", false);
+                animationController.SetBool("Sick", true);
+                animationController.SetBool("Healthy", false);
+                animationController.SetBool("Dead", false);
                 break;
             case PatientWounds.Surgery:
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/patient");
+                animationController.SetBool("Bleeding", false);
+                animationController.SetBool("Knife", true);
+                animationController.SetBool("Sick", false);
+                animationController.SetBool("Healthy", false);
+                animationController.SetBool("Dead", false);
                 break;
             case PatientWounds.Exorcism:
-                spriteRenderer.sprite = Resources.Load<Sprite>("Sprites/patient");
+                animationController.SetBool("Bleeding", false);
+                animationController.SetBool("Knife", false);
+                animationController.SetBool("Sick", false);
+                animationController.SetBool("Healthy", false);
+                animationController.SetBool("Dead", false);
                 break;
         }
 	}

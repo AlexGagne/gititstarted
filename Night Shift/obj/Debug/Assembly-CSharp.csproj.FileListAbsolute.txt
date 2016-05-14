@@ -18,3 +18,4 @@ C:\Users\xpro\Documents\git_ubi\gititstarted\Night Shift\Temp\bin\Debug\UnityEng
 C:\Users\xpro\Documents\git_ubi\gititstarted\Night Shift\Temp\bin\Debug\UnityEngine.Networking.xml
 C:\Users\xpro\Documents\git_ubi\gititstarted\Night Shift\obj\Debug\Assembly-CSharp.dll
 C:\Users\xpro\Documents\git_ubi\gititstarted\Night Shift\obj\Debug\Assembly-CSharp.pdb
+C:\Users\xpro\Documents\git_ubi\gititstarted\Night Shift\obj\Debug\Assembly-CSharp.csprojResolveAssemblyReference.cache

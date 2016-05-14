@@ -11,7 +11,7 @@ public abstract class GitCharacterController : MonoBehaviour {
     protected int nextPosition = 0;
     protected bool targetChanged = false;
 
-    private Animator animationController;
+    protected Animator animationController;
 
     // Use this for initialization
     void Start () {
@@ -63,6 +63,7 @@ public abstract class GitCharacterController : MonoBehaviour {
                 if (transform.position != path[nextPosition].worldPosition_)
                 {
                     var nextPos = path[nextPosition].worldPosition_;
+                    nextPos.z = transform.position.z;
                     RotateToPoint(transform.position, nextPos);
                     transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
 
@@ -75,6 +76,7 @@ public abstract class GitCharacterController : MonoBehaviour {
                     if (nextPosition < path.Count)
                     {
                         var nextPos = path[nextPosition].worldPosition_;
+                        nextPos.z = transform.position.z;
                         RotateToPoint(transform.position, nextPos);
                         transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
                     }

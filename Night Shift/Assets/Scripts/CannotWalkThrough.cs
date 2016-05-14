@@ -4,7 +4,7 @@ using System.Collections;
 public class CannotWalkThrough : MonoBehaviour {
 
     public SpriteRenderer spriteRenderer;
-    
+
 	// Use this for initialization
 	void Start () {
         spriteRenderer = GetComponent<SpriteRenderer>();
