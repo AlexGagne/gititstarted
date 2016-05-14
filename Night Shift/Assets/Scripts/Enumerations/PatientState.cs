@@ -7,7 +7,6 @@ namespace Assets.Scripts
 {
     public enum PatientState
     {
-        Default,
         WaitingForTreatment,
         GettingTreated,
         DoneTreatment
