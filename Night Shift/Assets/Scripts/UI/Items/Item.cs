@@ -73,7 +73,7 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
 
     public virtual void UseItem(Patient patient)
     {
-        if(gameManager.Money <= price)
+        if(gameManager.Money < price)
         {
             Debug.Log("Broke");
             return;

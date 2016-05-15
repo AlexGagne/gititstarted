@@ -1,4 +1,5 @@
 ﻿using UnityEngine;
+using UnityEngine.SceneManagement;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine.UI;
@@ -232,13 +233,13 @@ public class GameManager : MonoBehaviour {
     //Is called when a lose condition is met (reputation of 0, too much debt)
     void LoseGame()
     {
-
+        SceneManager.LoadScene("Defeat");
     }
 
     //Is called when the time is over
     void WinGame()
     {
-
+        SceneManager.LoadScene("Victory");
     }
 
     public static void disableCanvasForPatients()

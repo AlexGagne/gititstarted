@@ -31,6 +31,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
     private bool goingToSeat = false;
     private int id;
+    public int ID { get { return id; } }
     private static int nextId = 0;
     
     private int panicModeIndex = 0;
@@ -155,6 +156,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 	void Update () {
         try
         {
+            //If client is healthy, go to the door
             if (Wound == PatientWounds.Healthy)
             {
                 if (firstInitHealthyPatient)
@@ -166,10 +168,13 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                 addTarget(TreatmentFlags.EntrancePosition);
                 MoveToPosition();
             }
-            if (!transportedByPlayer)
+
+            //Beginning of client not being transported
+            if (!transportedByPlayer && Wound != PatientWounds.Dead)
             {
                 switch (State)
                 {
+                    //Client is in treatment
                     case PatientState.GettingTreated:
                         // Wait for a bit of time
                         healthyCounter--;
@@ -179,11 +184,15 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                         }
                         MoveToPosition();
                         break;
+
+                    //Client tries to get a chair
                     case PatientState.WaitingForTreatment:
                         GoToAvailableChair();
                         break;
                 }
             }
+
+            //Client is being transported
             else
             {
                 if (firstInitTransportPatient)
@@ -201,6 +210,8 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     MoveToPosition();
                 }
             }
+
+            //Visual update for possessed patients
             if (Wound == PatientWounds.Exorcism)
             {
                 transform.Rotate(new Vector3(0, 0, 2 * turnSpeed));
@@ -261,6 +272,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
     protected override void collidedWith(Collision2D coll)
     {
+        //Patient cannot find seat
         if (panicMode)
         {
             return;
@@ -268,6 +280,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
         var nameOfCollided = coll.gameObject.name;
        
+        //Patient collided with the player, and was seated
         if(nameOfCollided == "Player")
         {
             if(PlayerFlags.IdOfLastClickedPatient == id)
@@ -455,6 +468,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         gameManager.PatientCured();
     }
     
+
     void OnLeftClick(object frontMostRayCast)
     {
         PlayerFlags.IdOfLastClickedPatient = id;
