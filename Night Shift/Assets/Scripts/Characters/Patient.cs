@@ -26,10 +26,6 @@ public class Patient : GitCharacterController, IEquatable<Patient>
     private static List<Vector3> panicModeWaypoints = new List<Vector3>();
     private static bool listsInitialized = false;
 
-
-    /*public GameObject tileSelectionMarker;
-    private GameObject selectorSprite;*/
-
     private bool isSeated = false;
     public bool IsSeated { get { return isSeated; } }
 
@@ -155,55 +151,63 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 	
 	// Update is called once per frame
 	void Update () {
-        if(Wound == PatientWounds.Healthy)
+        try
         {
-            if (firstInitHealthyPatient)
+            if (Wound == PatientWounds.Healthy)
             {
-                clearTargets();
-                firstInitHealthyPatient = false;
-            }
+                if (firstInitHealthyPatient)
+                {
+                    clearTargets();
+                    firstInitHealthyPatient = false;
+                }
 
-            addTarget(TreatmentFlags.EntrancePosition);
-            MoveToPosition();
-        }
-        if (!transportedByPlayer)
-        {
-            switch (State)
-            {
-                case PatientState.GettingTreated:
-                    // Wait for a bit of time
-                    healthyCounter--;
-                    if(healthyCounter <= 0)
-                    {
-                        BecomeHealthy();
-                    }
-                    MoveToPosition();
-                    break;
-                case PatientState.WaitingForTreatment:
-                    GoToAvailableChair();
-                    break;
+                addTarget(TreatmentFlags.EntrancePosition);
+                MoveToPosition();
             }
-        }
-        else
-        {
-            if (firstInitTransportPatient)
+            if (!transportedByPlayer)
             {
-                clearTargets();
-                firstInitTransportPatient = false;
-            }
-            if (Wound == PatientWounds.Dead)
-            {
-                transform.position = PlayerFlags.playerPosition;
+                switch (State)
+                {
+                    case PatientState.GettingTreated:
+                        // Wait for a bit of time
+                        healthyCounter--;
+                        if (healthyCounter == 0)
+                        {
+                            BecomeHealthy();
+                        }
+                        MoveToPosition();
+                        break;
+                    case PatientState.WaitingForTreatment:
+                        GoToAvailableChair();
+                        break;
+                }
             }
             else
             {
-                addTarget(PlayerFlags.playerPosition);
-                MoveToPosition();
+                if (firstInitTransportPatient)
+                {
+                    clearTargets();
+                    firstInitTransportPatient = false;
+                }
+                if (Wound == PatientWounds.Dead)
+                {
+                    transform.position = PlayerFlags.playerPosition;
+                }
+                else
+                {
+                    addTarget(PlayerFlags.playerPosition);
+                    MoveToPosition();
+                }
+            }
+            if (Wound == PatientWounds.Exorcism)
+            {
+                transform.Rotate(new Vector3(0, 0, 2 * turnSpeed));
             }
         }
-        if(Wound == PatientWounds.Exorcism)
+        catch (Exception e)
         {
-            transform.Rotate(new Vector3(0, 0, 2*turnSpeed));
+            //Because we hate exceptions
+            print("Exception " + e.Message);
         }
     }
 

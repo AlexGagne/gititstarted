@@ -10,6 +10,6 @@ public class PlayerFlags : MonoBehaviour
     public static bool isPlayerBeingFollowed { get; set; }
 
     public static Vector3 playerPosition { get; set; }
-    
-    public static int IdOfLastClickedPatient { get; set; }    
+
+    public static int IdOfLastClickedPatient = -1;
 }

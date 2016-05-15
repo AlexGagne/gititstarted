@@ -1,5 +1,6 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
+using System;
 
 public class Player : GitCharacterController
 {
@@ -14,29 +15,36 @@ public class Player : GitCharacterController
     // Update is called once per frame
     void Update()
     {
-        // Mouse button 0 is left click
-        if (Input.GetMouseButton(0))
-        {
-            var newTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            newTarget.z = transform.position.z;
-            if (newTarget.x < 20.0f && newTarget.x > -20.0f && newTarget.y < 20.0f && newTarget.y > -20.0f)
+        try {
+            // Mouse button 0 is left click
+            if (Input.GetMouseButton(0))
             {
-                target = newTarget;
+                var newTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+                newTarget.z = transform.position.z;
+                if (newTarget.x < 20.0f && newTarget.x > -20.0f && newTarget.y < 20.0f && newTarget.y > -20.0f)
+                {
+                    target = newTarget;
+                }
             }
-        }
-        
-        if (PlayerFlags.isPlayerBeingFollowed)
-        {
-            speed = 10.0f;
-        }
-        else
-        {
-            speed = 15.0f;
-        }
 
-        PlayerFlags.playerPosition = transform.position;
+            if (PlayerFlags.isPlayerBeingFollowed)
+            {
+                speed = 10.0f;
+            }
+            else
+            {
+                speed = 15.0f;
+            }
 
-        hackMoveToPosition();
+            PlayerFlags.playerPosition = transform.position;
+
+            hackMoveToPosition();
+        }
+        catch(Exception e)
+        {
+            //Because we hate exceptions
+            print("Exception " + e.Message);
+        }
     }
 
     private void hackMoveToPosition()
