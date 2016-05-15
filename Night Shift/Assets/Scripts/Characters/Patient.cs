@@ -532,7 +532,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         animationController.SetBool("Dead", true);
         // The next bool resets the animation
         animationController.SetBool("Moving", false);
-
+        panicMode = false;
 
         gameManager.PatientDied();
     }    
