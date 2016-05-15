@@ -90,6 +90,8 @@ namespace Assets.Scripts
             if(patient != null && gameManager!=null)
             {
                 patient.gameManager = gameManager;
+                //Add Patient to patient list
+                GameManager.AddPatient(patient);
             }
         }
     }

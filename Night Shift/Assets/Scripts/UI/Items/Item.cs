@@ -71,7 +71,7 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
         infoZone.transform.GetChild(1).GetComponent<Text>().text = "";
     }
 
-    public virtual void UseItem()
+    public virtual void UseItem(Patient patient)
     {
         if(gameManager.Money <= price)
         {
@@ -84,6 +84,9 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
 
         //Hide the text
         HideItemDesc();
+
+        //Affect the patient
+        
 
     }
 }

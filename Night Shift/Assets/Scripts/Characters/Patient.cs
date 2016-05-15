@@ -28,6 +28,8 @@ public class Patient : GitCharacterController, IEquatable<Patient>
     private GameObject selectorSprite;*/
 
     private bool isSeated = false;
+    public bool IsSeated { get { return isSeated; } }
+
     private bool goingToSeat = false;
     private int id;
     private static int nextId = 0;

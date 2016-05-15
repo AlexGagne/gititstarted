@@ -50,6 +50,7 @@ public class GameManager : MonoBehaviour {
         UpdateRepDisplay();
         UpdateItemDisplay();
         //****************************************/
+        patients = new List<Patient>();
         InvokeRepeating("SecondPassed", 1f, 1f);
     }
 

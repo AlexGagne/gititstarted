@@ -9,7 +9,17 @@ public class DropZone : MonoBehaviour, IDropHandler {
         Item d = eventData.pointerDrag.GetComponent<Item>();
         if (d != null)
         {
-            d.UseItem();
+            Debug.Log("Worked!");
+            //Get the patient gamescript to use the item
+            Patient patient = gameObject.transform.parent.parent.gameObject.GetComponent<Patient>();
+
+            //He may use the item if he is seated only
+            if(patient.IsSeated)
+            {
+                Debug.Log("WasSeated!");
+                d.UseItem(patient);
+            }
+                
         }
     }
 }
