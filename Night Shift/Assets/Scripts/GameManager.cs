@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour {
 
     int reputation;
     int deathCount;
-
+    AudioSource audioSource;
     
     public int curedMoneyReward;
     public int curedRepReward;
@@ -43,6 +43,8 @@ public class GameManager : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
 
+        audioSource = GetComponent<AudioSource>();
+        audioSource.Play();
         //DEBUG***********************************/
         money = 20;
         reputation = 100;
