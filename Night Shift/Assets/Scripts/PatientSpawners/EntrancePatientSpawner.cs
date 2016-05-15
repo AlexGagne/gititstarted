@@ -66,10 +66,10 @@ namespace Assets.Scripts
                         switch (randEasy)
                         {
                             case 0:
-                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 1:
-                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                         }
                         break;
@@ -78,16 +78,16 @@ namespace Assets.Scripts
                         switch (randMedium)
                         {
                             case 0:
-                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 1:
-                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 2:
-                                Instantiate(patientKnifePrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientKnifePrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 3:
-                                Instantiate(patientVomitPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientVomitPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                         }
                         break;
@@ -96,19 +96,19 @@ namespace Assets.Scripts
                         switch (randHard)
                         {
                             case 0:
-                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 1:
-                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 2:
-                                Instantiate(patientKnifePrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientKnifePrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 3:
-                                Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 4:
-                                Instantiate(patientVomitPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientVomitPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                         }
                         break;
@@ -117,19 +117,19 @@ namespace Assets.Scripts
                         switch (randLast)
                         {
                             case 0:
-                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 1:
-                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 2:
-                                Instantiate(patientKnifePrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientKnifePrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 3:
-                                Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                             case 4:
-                                Instantiate(patientVomitPrefab, transform.position, Quaternion.identity);
+                                patient = (Instantiate(patientVomitPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                                 break;
                         }
                         break;

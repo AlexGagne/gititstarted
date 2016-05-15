@@ -8,8 +8,8 @@ namespace Assets.Scripts
         public bool canSpawnPatients = false;
 
 
-        public Patient patientTutorialBloodPrefab;
-        public Patient patientTutorialCrazyPrefab;
+        public GameObject patientTutorialBloodPrefab;
+        public GameObject patientTutorialCrazyPrefab;
 
         // Use this for initialization
         void Start()
@@ -52,10 +52,10 @@ namespace Assets.Scripts
             switch (rand)
             {
                 case 0:
-                    patient = Instantiate(patientTutorialBloodPrefab, transform.position, Quaternion.identity) as Patient;
+                    patient = (Instantiate(patientTutorialBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 1:
-                    patient = Instantiate(patientTutorialCrazyPrefab, transform.position, Quaternion.identity) as Patient;
+                    patient = (Instantiate(patientTutorialCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
             }
             if (patient != null && gameManager != null)

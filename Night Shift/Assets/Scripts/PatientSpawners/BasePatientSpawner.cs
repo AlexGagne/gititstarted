@@ -5,11 +5,11 @@ namespace Assets.Scripts
 {
     public class BasePatientSpawner : MonoBehaviour {
         
-        public Patient patientKnifePrefab;
-        public Patient patientCrazyPrefab;
-        public Patient patientBloodPrefab;
-        public Patient patientVomitPrefab;
-        public Patient patientPossessedPrefab;
+        public GameObject patientKnifePrefab;
+        public GameObject patientCrazyPrefab;
+        public GameObject patientBloodPrefab;
+        public GameObject patientVomitPrefab;
+        public GameObject patientPossessedPrefab;
 
         public GameManager gameManager;
 

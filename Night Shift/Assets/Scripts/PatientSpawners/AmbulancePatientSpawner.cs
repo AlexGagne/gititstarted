@@ -72,19 +72,19 @@ namespace Assets.Scripts
             switch (rand)
             {
                 case 0:
-                    patient = Instantiate(patientBloodPrefab, transform.position, Quaternion.identity) as Patient;
+                    patient = (Instantiate(patientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 1:
-                    patient = Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity) as Patient;
+                    patient = (Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 2:
-                    patient = Instantiate(patientKnifePrefab, transform.position, Quaternion.identity) as Patient;
+                    patient = (Instantiate(patientKnifePrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 3:
-                    patient = Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity) as Patient;
+                    patient = (Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 4:
-                    patient = Instantiate(patientVomitPrefab, transform.position, Quaternion.identity) as Patient;
+                    patient = (Instantiate(patientVomitPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
             }
             if(patient != null && gameManager!=null)
