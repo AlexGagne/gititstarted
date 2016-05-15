@@ -621,6 +621,9 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         Calm += amountOfCalmLost;
         Calm = Mathf.Clamp(Calm, 0, 100);
 
+        // Can "overheal", over 100, but cannot go lower than 0
+        HP = Mathf.Clamp(HP, 0, 1000);
+
         if (HP <= 0)
         {
             BecomeDead();
