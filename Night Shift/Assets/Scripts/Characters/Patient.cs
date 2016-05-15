@@ -49,6 +49,13 @@ public class Patient : GitCharacterController, IEquatable<Patient>
     
     private bool firstInitCollisionWithTreatment = true;
 
+    public bool TransportedByPlayer {
+        get
+        {
+            return transportedByPlayer;
+        }
+    }
+
     // Use this for initialization
     void Start () {
         initialize();

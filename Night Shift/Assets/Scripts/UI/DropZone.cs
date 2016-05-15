@@ -27,7 +27,7 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
             if (patient == null)
                 Debug.Log("Null px");
             //He may use the item if he is seated only
-            if(patient.IsSeated || patient.State == PatientState.GettingTreated)
+            if(patient.IsSeated || patient.State == PatientState.GettingTreated || patient.TransportedByPlayer)
             {
                 Debug.Log("WasSeated!");
                 d.UseItem(patient);
