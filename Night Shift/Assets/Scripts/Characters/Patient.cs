@@ -542,6 +542,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         if (HP <= 0)
         {
             Wound = PatientWounds.Dead;
+            animationController.SetBool("Dead", true);
             gameManager.PatientDied();
         }
     }
