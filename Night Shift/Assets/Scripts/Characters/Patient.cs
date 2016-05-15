@@ -490,7 +490,20 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         }
         gameManager.PatientCured();
     }
-    
+
+    private void BecomeDead()
+    {
+        Wound = PatientWounds.Dead;
+        animationController.SetBool("Bleeding", false);
+        animationController.SetBool("Knife", false);
+        animationController.SetBool("Sick", false);
+        animationController.SetBool("Healthy", false);
+        animationController.SetBool("Crazy", false);
+        animationController.SetBool("Dead", true);
+        // The next bool resets the animation
+        animationController.SetBool("Moving", false);
+        gameManager.PatientDied();
+    }    
 
     void OnLeftClick(object frontMostRayCast)
     {
@@ -578,9 +591,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
         if (HP <= 0)
         {
-            Wound = PatientWounds.Dead;
-            animationController.SetBool("Dead", true);
-            gameManager.PatientDied();
+            BecomeDead();
         }
     }
 
