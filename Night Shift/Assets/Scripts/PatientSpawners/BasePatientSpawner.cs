@@ -11,6 +11,8 @@ namespace Assets.Scripts
         public Patient patientVomitPrefab;
         public Patient patientPossessedPrefab;
 
+        public GameManager gameManager;
+
         // Use this for initialization
         void Start() {
         }

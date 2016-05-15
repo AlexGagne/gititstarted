@@ -1,12 +1,22 @@
 ﻿using UnityEngine;
 using System.Collections.Generic;
 using Assets.Scripts;
+using System;
 
-public class Patient : GitCharacterController
+public class Patient : GitCharacterController, IEquatable<Patient>
 {
 
     public PatientState State;
     public PatientWounds Wound;
+
+    public int HP = 100;
+    public int Calm = 100;
+
+    public bool panicMode = false;
+
+    public int healthyCounter = 500;
+
+    public GameManager gameManager;
 
     private static List<bool> isChairOccupied = new List<bool>();
     private static List<Vector3> chairPositions = new List<Vector3>();
@@ -21,8 +31,7 @@ public class Patient : GitCharacterController
     private bool goingToSeat = false;
     private int id;
     private static int nextId = 0;
-
-    private bool panicMode = false;
+    
     private int panicModeIndex = 0;
 
     private bool transportedByPlayer = false;
@@ -31,9 +40,7 @@ public class Patient : GitCharacterController
     private int occupiedChairIndex;
 
     private bool firstInitHealthyPatient = true;
-
-    private int healthyCounter = 600;
-
+    
     private bool firstInitCollisionWithTreatment = true;
 
     // Use this for initialization
@@ -45,6 +52,8 @@ public class Patient : GitCharacterController
         nextId++;
 
         Physics.queriesHitTriggers = true;
+
+        GenerateStats();
 
         // Change sprite according to illness
         switch (Wound)
@@ -264,7 +273,7 @@ public class Patient : GitCharacterController
                         transportedByPlayer = true;
                         isSeated = false;
                         isChairOccupied[occupiedChairIndex] = false;
-                        speed = 15.0f;
+                        speed = 20.0f;
                     }
                 }
             }            
@@ -273,6 +282,7 @@ public class Patient : GitCharacterController
         {
             if (Wound == PatientWounds.Healthy)
             {
+                GameManager.RemovePatient(this);
                 Destroy(this.gameObject);
             }
 
@@ -388,6 +398,7 @@ public class Patient : GitCharacterController
                         return;
                     }
 
+                    GameManager.RemovePatient(this);
                     transportedByPlayer = false;
                     PlayerFlags.isPlayerBeingFollowed = false;
                     Destroy(this.gameObject);
@@ -434,6 +445,7 @@ public class Patient : GitCharacterController
                 TreatmentFlags.isExorcismOccupied = false;
                 break;
         }
+        gameManager.PatientCured();
     }
     
     void OnLeftClick(object frontMostRayCast)
@@ -444,5 +456,86 @@ public class Patient : GitCharacterController
     void OnRightClick(object frontMostRayCast)
     {
         PlayerFlags.IdOfLastClickedPatient = id;
+    }
+
+    public bool Equals(Patient other)
+    {
+        if (Equals(this, null) && Equals(other, null))
+            return true;
+        else if (Equals(this, null) | Equals(other, null))
+            return false;
+        else if (id == other.id)
+            return true;
+        else
+            return false;
+    }
+    public override bool Equals(object obj)
+    {
+        return Equals(obj as Patient);
+    }
+
+    public override int GetHashCode()
+    {
+        return id;
+    }
+
+    private void GenerateStats()
+    {
+        switch (Wound)
+        {
+            case PatientWounds.Healthy:
+                HP = 100;
+                Calm = 100;
+                break;
+            case PatientWounds.Dead:
+                HP = 0;
+                Calm = 0;
+                break;
+            case PatientWounds.Hemorhagie:
+                HP = UnityEngine.Random.Range(70,90);
+                Calm = UnityEngine.Random.Range(55, 70);
+                break;
+            case PatientWounds.Psychology:
+                HP = UnityEngine.Random.Range(90, 100);
+                Calm = UnityEngine.Random.Range(40, 60);
+                break;
+            case PatientWounds.Vomitorium:
+                HP = UnityEngine.Random.Range(70, 80);
+                Calm = UnityEngine.Random.Range(55, 70);
+                break;
+            case PatientWounds.Surgery:
+                HP = UnityEngine.Random.Range(35, 50);
+                Calm = UnityEngine.Random.Range(40, 55);
+                break;
+            case PatientWounds.Exorcism:
+                HP = UnityEngine.Random.Range(90, 100);
+                Calm = UnityEngine.Random.Range(20, 40);
+                break;
+        }
+    }
+
+    public void UpdateStatsPatient(int amountOfCalmLost)
+    {
+        if(Wound == PatientWounds.Healthy || Wound == PatientWounds.Dead)
+        {
+            return;
+        }
+
+        Calm = Mathf.Clamp(Calm, 0, 100);
+
+        HP -= 11 - Mathf.FloorToInt(Calm / 10.0f);
+        Calm += amountOfCalmLost;
+        Calm = Mathf.Clamp(Calm, 0, 100);
+
+        if (HP <= 0)
+        {
+            Wound = PatientWounds.Dead;
+            gameManager.PatientDied();
+        }
+    }
+
+    public void UpdateBarDisplay()
+    {
+
     }
 }
