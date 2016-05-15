@@ -521,9 +521,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         {
             return;
         }
-
-
-
+        
         //Patient is only updated at certain intervals
         timeExisted++;
         if (timeExisted % gameManager.secondsForUpdates != 0)
@@ -553,12 +551,20 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
         foreach (Vector3 chair in chairPositions)
         {
-            if(chair == transform.position)
+            if (isCloseEnough(chair))
             {
                 inAChair = true;
             }
         }
 
         return inAChair;
+    }
+
+    private bool isCloseEnough(Vector3 chair)
+    {
+        if (Mathf.Abs(chair.x - transform.position.x) < 0.2f)
+            if (Mathf.Abs(chair.y - transform.position.y) < 0.2f)
+                return true;
+        return false;
     }
 }

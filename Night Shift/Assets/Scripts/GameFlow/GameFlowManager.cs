@@ -3,5 +3,5 @@ using System.Collections;
 
 public static class GameFlowManager{
     
-    public static GameFlowState GamePhase = GameFlowState.LastPhase;
+    public static GameFlowState GamePhase = GameFlowState.PhaseEasy;
 }
