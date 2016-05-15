@@ -60,7 +60,7 @@ public class MenuManager : MonoBehaviour {
 
         }
 
-        yield return new WaitForSeconds(1.5f);
+        yield return new WaitForSeconds(14f);
 
         SceneManager.LoadScene("Game");
     }

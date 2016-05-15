@@ -88,6 +88,7 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
         //Affect the patient
         patient.HP += hpMod;
         patient.Calm += calmMod;
+        patient.SpawnReward(-price, new Color(1, 0, 0, 0));
         
 
     }

@@ -1,4 +1,6 @@
 ﻿using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts;
 using System;
@@ -6,6 +8,8 @@ using System;
 public class Patient : GitCharacterController, IEquatable<Patient>
 {
     static Player player;
+    static GameObject reward;
+
     public PatientState State;
     public PatientWounds Wound;
 
@@ -17,7 +21,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
     public bool panicMode = false;
 
-    public int healthyCounter = 25;
+    private int healthyCounter = 350;
 
     public GameManager gameManager;
 
@@ -52,6 +56,8 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
         if (player == null)
             player = GameObject.Find("Player").GetComponent<Player>();
+        if (reward == null)
+            reward = Resources.Load("getmoney") as GameObject;
 
         id = nextId;
         nextId++;
@@ -171,6 +177,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                 addTarget(TreatmentFlags.EntrancePosition);
                 MoveToPosition();
             }
+
 
             //Beginning of client not being transported
             if (!transportedByPlayer && Wound != PatientWounds.Dead)
@@ -493,6 +500,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                 break;
         }
         gameManager.PatientCured();
+        SpawnReward(5, new Color(1,1,1,0));
     }
 
     private void BecomeDead()
@@ -534,6 +542,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         animationController.SetBool("Moving", false);
         panicMode = false;
 
+        SpawnReward(-10, new Color(1, 0, 0, 0));
         gameManager.PatientDied();
     }    
 
@@ -657,6 +666,30 @@ public class Patient : GitCharacterController, IEquatable<Patient>
             if (Mathf.Abs(chair.y - transform.position.y) < 0.2f)
                 return true;
         return false;
+    }
+
+    public void SpawnReward(int amount, Color col)
+    {
+        GameObject rew = Instantiate(reward, this.transform.position + new Vector3(0, 0, 3f), Quaternion.identity) as GameObject;
+        rew.GetComponentInChildren<Text>().text = amount + "$";
+        rew.GetComponentInChildren<Text>().color = col;
+        StartCoroutine("AnimateReward", rew);
+        
+    }
+
+    IEnumerator AnimateReward(GameObject rew)
+    {
+        float time = 0f;
+        Text tex = rew.GetComponentInChildren<Text>();
+        while(time < 2f)
+        {
+            time += 0.04f;
+            tex.color = new Color(tex.color.r, tex.color.g, tex.color.b, time / 2f);
+            rew.transform.position += new Vector3(0, time / 10f);
+            yield return new WaitForSeconds(0.04f);
+        }
+
+        Destroy(rew);
     }
 
 }
