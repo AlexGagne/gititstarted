@@ -16,6 +16,9 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
         //Remember this will return to position as basic value
         parentToReturnTo = this.transform.parent;
         //Set the item free
+        PlayerFlags.disableLeftClick = true;
+        GameManager.enableCanvasForPatients();
+
         this.transform.SetParent(this.transform.parent.parent.parent);
         this.transform.localScale = new Vector3(0.3f, 0.3f, 0.3f);
         GetComponent<CanvasGroup>().blocksRaycasts = false;
@@ -41,6 +44,9 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
         this.transform.SetParent(parentToReturnTo);
         this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         GetComponent<CanvasGroup>().blocksRaycasts = true;
+
+        PlayerFlags.disableLeftClick = false;
+        GameManager.disableCanvasForPatients();
 
         Destroy(placeholder);
 

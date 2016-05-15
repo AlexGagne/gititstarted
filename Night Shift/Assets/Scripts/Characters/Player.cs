@@ -17,7 +17,7 @@ public class Player : GitCharacterController
     {
         try {
             // Mouse button 0 is left click
-            if (Input.GetMouseButton(0))
+            if (Input.GetMouseButton(0) && !PlayerFlags.disableLeftClick)
             {
                 var newTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
                 newTarget.z = transform.position.z;

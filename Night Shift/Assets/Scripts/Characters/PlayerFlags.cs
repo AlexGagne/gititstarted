@@ -12,4 +12,6 @@ public class PlayerFlags : MonoBehaviour
     public static Vector3 playerPosition { get; set; }
 
     public static int IdOfLastClickedPatient = -1;
+
+    public static bool disableLeftClick = false;
 }

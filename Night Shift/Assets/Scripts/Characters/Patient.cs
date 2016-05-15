@@ -54,6 +54,8 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
         Physics.queriesHitTriggers = true;
 
+        transform.GetChild(0).position = new Vector3(-1000, -1000, -1000);
+
         GenerateStats();
 
         // Change sprite according to illness

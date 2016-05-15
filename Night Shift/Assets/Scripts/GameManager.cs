@@ -240,4 +240,20 @@ public class GameManager : MonoBehaviour {
     {
 
     }
+
+    public static void disableCanvasForPatients()
+    {
+        foreach(Patient patient in patients)
+        {
+            (patient.transform.GetChild(0)).position = new Vector3(-1000, -1000, -1000);
+        }
+    }
+
+    public static void enableCanvasForPatients()
+    {
+        foreach (Patient patient in patients)
+        {
+            (patient.transform.GetChild(0)).position = patient.transform.position;
+        }
+    }
 }
