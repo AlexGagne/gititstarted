@@ -5,7 +5,7 @@ public abstract class GitCharacterController : MonoBehaviour {
 
     public float speed = 10.0f;
     public float turnSpeed = 10.0f;
-    private Vector3 target;
+    protected Vector3 target;
     protected Queue<Vector3> targetQueue = new Queue<Vector3>();
     protected PathFinding pathFinding;
     protected List<Node> path = new List<Node>();
@@ -14,9 +14,7 @@ public abstract class GitCharacterController : MonoBehaviour {
     private bool nextTarget = true;
 
     protected Animator animationController;
-
-    private bool changeDestination = false;
-
+    
     protected bool reachedDestination = false;
 
     // Use this for initialization
@@ -45,7 +43,7 @@ public abstract class GitCharacterController : MonoBehaviour {
         animationController.SetBool("Moving", false);
     }
 
-    private void RotateToPoint(Vector3 origin, Vector3 destination)
+    protected void RotateToPoint(Vector3 origin, Vector3 destination)
     {
         var direction = destination - origin;
 
@@ -60,13 +58,6 @@ public abstract class GitCharacterController : MonoBehaviour {
 
     protected void addTarget(Vector3 newTarget)
     {
-        if(name == "Player")
-        {
-            targetQueue.Clear();
-            targetQueue.Enqueue(newTarget);
-            changeDestination = true;
-            animationController.SetBool("Moving", false);
-        }
         if (targetQueue.Count <= 5)
         {
             targetQueue.Enqueue(newTarget);
@@ -90,22 +81,25 @@ public abstract class GitCharacterController : MonoBehaviour {
 
     protected void MoveToPosition()
     {
-        Vector3 destination = target;
+        var destination = Vector3.zero;
 
-        if (nextTarget || changeDestination)
+        if (nextTarget)
         {
             destination = getNextTarget();
-            if (!destination.Equals(new Vector3(-1000, -1000, -1000)))
+            if (!destination.Equals(new Vector3(-1000, -1000, -1000)) && !target.Equals(destination))
             {
-                path = pathFinding.FindPath(transform.position, destination);
-                if (path.Count != 0)
+                // We make sure the path is legit before changing the current one
+                var tempPath = pathFinding.FindPath(transform.position, destination);
+                if (tempPath.Count != 0)
                 {
+                    target = destination;
+                    path = tempPath;
                     reachedDestination = false;
                     nextTarget = false;
+                    nextPosition = 0;
                 }
             }
         }
-
 
         // If a path is available to move
         if (path.Count != 0)
@@ -120,7 +114,13 @@ public abstract class GitCharacterController : MonoBehaviour {
                 if (transform.position != nextPos)
                 {
                     RotateToPoint(transform.position, nextPos);
+                    var oldPos = transform.position;
                     transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
+                    if (name == "Player")
+                    {
+                        print("Moved: " + Vector3.Magnitude(oldPos - transform.position));
+                    }
+
                 }
                 else
                 {

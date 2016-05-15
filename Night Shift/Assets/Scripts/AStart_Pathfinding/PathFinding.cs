@@ -49,7 +49,7 @@ public class PathFinding : MonoBehaviour {
             if(currentNode == targetNode) {
                 // Stop counting and print elapsed time in console
                 sw.Stop();
-                print("Path found: " + sw.ElapsedMilliseconds + " ms");
+                //print("Path found: " + sw.ElapsedMilliseconds + " ms");
 
                 // Retrace used path and return
 

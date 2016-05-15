@@ -13,6 +13,10 @@ public class Patient : GitCharacterController
     private static List<Vector3> panicModeWaypoints = new List<Vector3>();
     private static bool listsInitialized = false;
 
+
+    /*public GameObject tileSelectionMarker;
+    private GameObject selectorSprite;*/
+
     private bool isSeated = false;
     private bool goingToSeat = false;
     private int id;
@@ -39,6 +43,8 @@ public class Patient : GitCharacterController
 
         id = nextId;
         nextId++;
+
+        Physics.queriesHitTriggers = true;
 
         // Change sprite according to illness
         switch (Wound)
@@ -129,6 +135,8 @@ public class Patient : GitCharacterController
 
             listsInitialized = true;
         }
+
+        //selectorSprite = Instantiate((Object) tileSelectionMarker, new Vector3(0, 0, 0), Quaternion.identity);
     }
 	
 	// Update is called once per frame
@@ -187,12 +195,6 @@ public class Patient : GitCharacterController
         {
             transform.Rotate(new Vector3(0, 0, 2*turnSpeed));
         }
-        /*if (Input.GetMouseButton(1))
-        {
-            var newTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
-            newTarget.z = transform.position.z;
-            addTarget(newTarget);
-        }*/
     }
 
     private void GoToAvailableChair()
@@ -252,21 +254,20 @@ public class Patient : GitCharacterController
        
         if(nameOfCollided == "Player")
         {
-            /*if(PlayerFlags.IdOfLastClickedPatient != id)
+            if(PlayerFlags.IdOfLastClickedPatient == id)
             {
-                return;
-            }*/
-            if (isSeated)
-            {
-                if (!PlayerFlags.isPlayerBeingFollowed)
+                if (isSeated)
                 {
-                    PlayerFlags.isPlayerBeingFollowed = true;
-                    transportedByPlayer = true;
-                    isSeated = false;
-                    isChairOccupied[occupiedChairIndex] = false;
-                    speed = 15.0f;
+                    if (!PlayerFlags.isPlayerBeingFollowed)
+                    {
+                        PlayerFlags.isPlayerBeingFollowed = true;
+                        transportedByPlayer = true;
+                        isSeated = false;
+                        isChairOccupied[occupiedChairIndex] = false;
+                        speed = 15.0f;
+                    }
                 }
-            }
+            }            
         }
         else if(nameOfCollided == "Entrance")
         {
@@ -435,7 +436,12 @@ public class Patient : GitCharacterController
         }
     }
     
-    void onMouseDown()
+    void OnLeftClick(object frontMostRayCast)
+    {
+        PlayerFlags.IdOfLastClickedPatient = id;
+    }
+
+    void OnRightClick(object frontMostRayCast)
     {
         PlayerFlags.IdOfLastClickedPatient = id;
     }
