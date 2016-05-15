@@ -6,6 +6,11 @@ public class Player : GitCharacterController
 {
     Patient currentPatient;
 
+    //TreatmentZone highlights
+    public SpriteRenderer[] treatmentZones;
+    Color goTo = new Color(0, 1f, 0.2f, 0.4f);
+
+
     // Use this for initialization
     void Start()
     {
@@ -54,12 +59,39 @@ public class Player : GitCharacterController
     {
         speed = 6.0f;
         currentPatient = patient;
+
+        switch (patient.Wound)
+        {
+            case (PatientWounds.Dead):
+                treatmentZones[0].color = goTo;
+                break;
+            case (PatientWounds.Hemorhagie):
+                treatmentZones[1].color = goTo;
+                break;
+            case (PatientWounds.Psychology):
+                treatmentZones[2].color = goTo;
+                break;
+            case (PatientWounds.Vomitorium):
+                treatmentZones[3].color = goTo;
+                break;
+            case (PatientWounds.Surgery):
+                treatmentZones[4].color = goTo;
+                break;
+            case (PatientWounds.Exorcism):
+                treatmentZones[5].color = goTo;
+                break;
+        }
     }
 
     public void StopCarrying(Patient patient)
     {
         speed = 12.0f;
         currentPatient = null;
+
+        foreach(SpriteRenderer rend in treatmentZones)
+        {
+            rend.color = new Color(0, 0, 0, 0);
+        }
     }
 
     private void hackMoveToPosition()

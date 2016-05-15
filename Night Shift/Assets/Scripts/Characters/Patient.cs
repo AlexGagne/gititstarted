@@ -334,6 +334,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
                     TreatmentFlags.isHemorhagieOccupied = true;
                     deposited = true;
+                    player.StopCarrying(this);
                     if (firstInitCollisionWithTreatment)
                     {
                         clearTargets();
@@ -353,6 +354,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     }
 
                     TreatmentFlags.isPsychologyOccupied = true;
+                    player.StopCarrying(this);
                     deposited = true;
                     if (firstInitCollisionWithTreatment)
                     {
@@ -373,6 +375,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     }
 
                     TreatmentFlags.isVomitoriumOccupied = true;
+                    player.StopCarrying(this);
                     deposited = true;
                     if (firstInitCollisionWithTreatment)
                     {
@@ -393,6 +396,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     }
 
                     TreatmentFlags.isSurgeryOccupied = true;
+                    player.StopCarrying(this);
                     deposited = true;
                     if (firstInitCollisionWithTreatment)
                     {
@@ -413,6 +417,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     }
 
                     TreatmentFlags.isExorcismOccupied = true;
+                    player.StopCarrying(this);
                     deposited = true;
                     if (firstInitCollisionWithTreatment)
                     {
@@ -428,6 +433,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     }
 
                     GameManager.RemovePatient(this);
+                    player.StopCarrying(this);
                     transportedByPlayer = false;
                     PlayerFlags.isPlayerBeingFollowed = false;
                     Destroy(this.gameObject);
