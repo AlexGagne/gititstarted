@@ -232,6 +232,8 @@ public class GameManager : MonoBehaviour {
         //StateSwitch
         if(playTime%60 == 0)
         {
+            if (GameFlowManager.GamePhase == GameFlowState.LastPhase)
+                WinGame();
             GameFlowManager.GamePhase++;
             audioSource.clip = gong;
             audioSource.Play();
@@ -243,6 +245,8 @@ public class GameManager : MonoBehaviour {
             if (GameFlowManager.GamePhase == GameFlowState.PhaseHard) {
                 Destroy(doorHard);
             }
+            
+
 
         }
     }
@@ -282,7 +286,7 @@ public class GameManager : MonoBehaviour {
     }
 
     //Is called when the time is over
-    void WinGame()
+    static public void WinGame()
     {
         SceneManager.LoadScene("Victory");
     }

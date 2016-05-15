@@ -5,8 +5,8 @@ namespace Assets.Scripts
 {
     public class AmbulancePatientSpawner : BasePatientSpawner
     {
-        public int LastMinFramesBeforeSpawn = 120;
-        public int LastMaxFramesBeforeSpawn = 300;
+        public int LastMinFramesBeforeSpawn = 240;
+        public int LastMaxFramesBeforeSpawn = 360;
 
         private int randomFramesBeforeSpawn;
 

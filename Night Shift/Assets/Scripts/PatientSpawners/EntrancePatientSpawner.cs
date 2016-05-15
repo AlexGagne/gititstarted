@@ -5,13 +5,16 @@ namespace Assets.Scripts
 {
     public class EntrancePatientSpawner : BasePatientSpawner
     {
+        public int TutorialMinFramesBeforeSpawn = 240;
+        public int TutorialMaxFramesBeforeSpawn = 540;
+
         public int EasyMinFramesBeforeSpawn = 240;
-        public int EasyMaxFramesBeforeSpawn = 540;
+        public int EasyMaxFramesBeforeSpawn = 480;
 
         public int MediumMinFramesBeforeSpawn = 180;
-        public int MediumMaxFramesBeforeSpawn = 400;
+        public int MediumMaxFramesBeforeSpawn = 360;
 
-        public int HardMinFramesBeforeSpawn = 120;
+        public int HardMinFramesBeforeSpawn = 180;
         public int HardMaxFramesBeforeSpawn = 300;
 
         // Should not be different because of the Ambulance spawn
@@ -29,6 +32,9 @@ namespace Assets.Scripts
             switch (GameFlowManager.GamePhase)
             {
                 case GameFlowState.PhaseTutorial:
+                    currentMinFramesBeforeSpawn = TutorialMinFramesBeforeSpawn;
+                    currentMaxFramesBeforeSpawn = TutorialMaxFramesBeforeSpawn;
+                    randomFramesBeforeSpawn = (int)Random.Range(currentMinFramesBeforeSpawn, currentMaxFramesBeforeSpawn);
                     break;
                 case GameFlowState.PhaseEasy:
                     currentMinFramesBeforeSpawn = EasyMinFramesBeforeSpawn;
@@ -64,7 +70,7 @@ namespace Assets.Scripts
                 switch (GameFlowManager.GamePhase)
                 {
                     case GameFlowState.PhaseTutorial:
-                        break;
+                        
                     case GameFlowState.PhaseEasy:
                         var randEasy = (int)(Random.Range(0, 4));
                         switch (randEasy)
