@@ -131,18 +131,18 @@ public class Patient : GitCharacterController, IEquatable<Patient>
             }
 
             // Add every position of the chairs
-            chairPositions.Add(new Vector3(-6.0f, 1.0f, -1.0f));
-            chairPositions.Add(new Vector3(-4.0f, 1.0f, -1.0f));
-            chairPositions.Add(new Vector3(-1.0f, 1.0f, -1.0f));
-            chairPositions.Add(new Vector3(1.0f, 1.0f, -1.0f));
-            chairPositions.Add(new Vector3(4.0f, 1.0f, -1.0f));
-            chairPositions.Add(new Vector3(6.0f, 1.0f, -1.0f));
-            chairPositions.Add(new Vector3(-6.0f, -3.0f, -1.0f));
-            chairPositions.Add(new Vector3(-4.0f, -3.0f, -1.0f));
-            chairPositions.Add(new Vector3(-1.0f, -3.0f, -1.0f));
-            chairPositions.Add(new Vector3(1.0f, -3.0f, -1.0f));
-            chairPositions.Add(new Vector3(4.0f, -3.0f, -1.0f));
-            chairPositions.Add(new Vector3(6.0f, -3.0f, -1.0f));
+            chairPositions.Add(new Vector3(-3.875f, 1.375f, -1.0f));
+            chairPositions.Add(new Vector3(-1.875f, 1.375f, -1.0f));
+            chairPositions.Add(new Vector3(1.125f, 1.375f, -1.0f));
+            chairPositions.Add(new Vector3(3.125f, 1.375f, -1.0f));
+            chairPositions.Add(new Vector3(6.125f, 1.375f, -1.0f));
+            chairPositions.Add(new Vector3(8.125f, 1.375f, -1.0f));
+            chairPositions.Add(new Vector3(-3.875f, -2.75f, -1.0f));
+            chairPositions.Add(new Vector3(-1.875f, -2.75f, -1.0f));
+            chairPositions.Add(new Vector3(1.125f, -2.75f, -1.0f));
+            chairPositions.Add(new Vector3(3.125f, -2.75f, -1.0f));
+            chairPositions.Add(new Vector3(6.125f, -2.75f, -1.0f));
+            chairPositions.Add(new Vector3(8.125f, -2.75f, -1.0f));
 
             panicModeWaypoints.Add(new Vector3(-18.0f, 3.0f, -1.0f));
             panicModeWaypoints.Add(new Vector3(-18.0f, -3.0f, -1.0f));
