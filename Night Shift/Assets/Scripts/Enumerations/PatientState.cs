@@ -6,5 +6,6 @@ using System.Text;
  public enum PatientState
     {
         WaitingForTreatment,
-        GettingTreated
+        GettingTreated,
+        Treated
     }

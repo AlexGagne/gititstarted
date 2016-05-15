@@ -192,6 +192,9 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     case PatientState.WaitingForTreatment:
                         GoToAvailableChair();
                         break;
+                    case PatientState.Treated:
+                        MoveToPosition();
+                        break;
                 }
             }
 
@@ -460,6 +463,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
     {
         var oldWound = Wound;
         Wound = PatientWounds.Healthy;
+        State = PatientState.Treated;
 
         animationController.SetBool("Bleeding", false);
         animationController.SetBool("Knife", false);
@@ -493,6 +497,32 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
     private void BecomeDead()
     {
+        if(State == PatientState.GettingTreated)
+        {
+            switch(Wound)
+            {
+                case PatientWounds.Dead:
+                    break;
+                case PatientWounds.Exorcism:
+                    TreatmentFlags.isExorcismOccupied = false;
+                    break;
+                case PatientWounds.Healthy:
+                    break;
+                case PatientWounds.Hemorhagie:
+                    TreatmentFlags.isHemorhagieOccupied = false;
+                    break;
+                case PatientWounds.Psychology:
+                    TreatmentFlags.isPsychologyOccupied = false;
+                    break;
+                case PatientWounds.Surgery:
+                    TreatmentFlags.isSurgeryOccupied = false;
+                    break;
+                case PatientWounds.Vomitorium:
+                    TreatmentFlags.isVomitoriumOccupied = false;
+                    break;
+            }
+        }
+
         Wound = PatientWounds.Dead;
         animationController.SetBool("Bleeding", false);
         animationController.SetBool("Knife", false);
@@ -502,6 +532,8 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         animationController.SetBool("Dead", true);
         // The next bool resets the animation
         animationController.SetBool("Moving", false);
+
+
         gameManager.PatientDied();
     }    
 
