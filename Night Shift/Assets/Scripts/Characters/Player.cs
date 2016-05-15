@@ -27,7 +27,7 @@ public class Player : GitCharacterController
         
         if (PlayerFlags.isPlayerBeingFollowed)
         {
-            speed = 5.0f;
+            speed = 10.0f;
         }
         else
         {

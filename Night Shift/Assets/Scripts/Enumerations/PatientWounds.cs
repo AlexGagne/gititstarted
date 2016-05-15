@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Assets.Scripts
-{
-    public enum PatientWounds
+ public enum PatientWounds
     {
         Healthy,
         Dead,
@@ -15,4 +13,3 @@ namespace Assets.Scripts
         Surgery,
         Exorcism
     }
-}

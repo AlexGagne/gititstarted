@@ -5,15 +5,50 @@ namespace Assets.Scripts
 {
     public class EntrancePatientSpawner : BasePatientSpawner
     {
-        public int MaxFramesBeforeSpawn = 600;
-        public int MinFramesBeforeSpawn = 180;
+        public int EasyMinFramesBeforeSpawn = 240;
+        public int EasyMaxFramesBeforeSpawn = 540;
+
+        public int MediumMinFramesBeforeSpawn = 180;
+        public int MediumMaxFramesBeforeSpawn = 400;
+
+        public int HardMinFramesBeforeSpawn = 120;
+        public int HardMaxFramesBeforeSpawn = 300;
+
+        // Should not be different because of the Ambulance spawn
+        public int LastMinFramesBeforeSpawn = 120;
+        public int LastMaxFramesBeforeSpawn = 300;
+
+        private int currentMinFramesBeforeSpawn;
+        private int currentMaxFramesBeforeSpawn;
 
         private int randomFramesBeforeSpawn;
 
         // Use this for initialization
         void Start()
         {
-            randomFramesBeforeSpawn = (int)(Random.Range(MinFramesBeforeSpawn, MaxFramesBeforeSpawn));
+            switch (GameFlowManager.GamePhase)
+            {
+                case GameFlowState.PhaseTutorial:
+                    break;
+                case GameFlowState.PhaseEasy:
+                    currentMinFramesBeforeSpawn = EasyMinFramesBeforeSpawn;
+                    currentMaxFramesBeforeSpawn = EasyMaxFramesBeforeSpawn;
+                    break;
+                case GameFlowState.PhaseMedium:
+                    currentMinFramesBeforeSpawn = MediumMinFramesBeforeSpawn;
+                    currentMaxFramesBeforeSpawn = MediumMaxFramesBeforeSpawn;
+                    break;
+                case GameFlowState.PhaseHard:
+                    currentMinFramesBeforeSpawn = HardMinFramesBeforeSpawn;
+                    currentMaxFramesBeforeSpawn = HardMaxFramesBeforeSpawn;
+                    break;
+                case GameFlowState.LastPhase:
+                    currentMinFramesBeforeSpawn = LastMinFramesBeforeSpawn;
+                    currentMaxFramesBeforeSpawn = LastMaxFramesBeforeSpawn;
+                    break;
+                case GameFlowState.End:
+                    break;
+            }
         }
 
         // Update is called once per frame
@@ -21,24 +56,89 @@ namespace Assets.Scripts
         {
             if (canSpawnPatient())
             {
-                var rand = (int)(Random.value * 5000) % 6;
-                switch (rand)
+                Patient patient = null;
+                switch (GameFlowManager.GamePhase)
                 {
-                    case 0:
-                        Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                    case GameFlowState.PhaseTutorial:
                         break;
-                    case 1:
-                        Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                    case GameFlowState.PhaseEasy:
+                        var randEasy = (int)(Random.Range(0, 2));
+                        switch (randEasy)
+                        {
+                            case 0:
+                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 1:
+                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                break;
+                        }
                         break;
-                    case 2:
-                        Instantiate(patientKnifePrefab, transform.position, Quaternion.identity);
+                    case GameFlowState.PhaseMedium:
+                        var randMedium = (int)(Random.Range(0, 4));
+                        switch (randMedium)
+                        {
+                            case 0:
+                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 1:
+                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 2:
+                                Instantiate(patientKnifePrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 3:
+                                Instantiate(patientVomitPrefab, transform.position, Quaternion.identity);
+                                break;
+                        }
                         break;
-                    case 3:
-                        Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity);
+                    case GameFlowState.PhaseHard:
+                        var randHard = (int)(Random.Range(0,5));
+                        switch (randHard)
+                        {
+                            case 0:
+                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 1:
+                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 2:
+                                Instantiate(patientKnifePrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 3:
+                                Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 4:
+                                Instantiate(patientVomitPrefab, transform.position, Quaternion.identity);
+                                break;
+                        }
                         break;
-                    case 4:
-                        Instantiate(patientVomitPrefab, transform.position, Quaternion.identity);
+                    case GameFlowState.LastPhase:
+                        var randLast = (int)(Random.Range(0, 5));
+                        switch (randLast)
+                        {
+                            case 0:
+                                Instantiate(patientBloodPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 1:
+                                Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 2:
+                                Instantiate(patientKnifePrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 3:
+                                Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity);
+                                break;
+                            case 4:
+                                Instantiate(patientVomitPrefab, transform.position, Quaternion.identity);
+                                break;
+                        }
                         break;
+                    case GameFlowState.End:
+                        break;
+                }
+                if (patient != null && gameManager != null)
+                {
+                    patient.gameManager = gameManager;
                 }
             }
         }
@@ -52,7 +152,7 @@ namespace Assets.Scripts
             }
             else
             {
-                randomFramesBeforeSpawn = (int)(Random.value * MaxFramesBeforeSpawn);
+                randomFramesBeforeSpawn = Mathf.Clamp((int)(Random.value * currentMaxFramesBeforeSpawn), currentMinFramesBeforeSpawn, currentMaxFramesBeforeSpawn);
                 return true;
             }
         }
