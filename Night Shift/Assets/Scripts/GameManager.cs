@@ -16,7 +16,9 @@ public class GameManager : MonoBehaviour {
     int reputation;
     int deathCount;
     AudioSource audioSource;
-    
+    public List<AudioClip> audioclips;
+    public AudioClip gong;
+
     public int curedMoneyReward;
     public int curedRepReward;
     public int deathMoneyPenalty;
@@ -45,11 +47,10 @@ public class GameManager : MonoBehaviour {
     public GameObject minTic;
     public GameObject hourTic;
 
-	// Use this for initialization
-	void Start () {
+    // Use this for initialization
+    void Start() {
 
         audioSource = GetComponent<AudioSource>();
-        audioSource.Play();
         //DEBUG***********************************/
         money = 20;
         reputation = 70;
@@ -62,6 +63,15 @@ public class GameManager : MonoBehaviour {
         //****************************************/
         patients = new List<Patient>();
         InvokeRepeating("SecondPassed", 1f, 1f);
+        StartCoroutine(PlayRandomSounds());
+    }
+
+    IEnumerator PlayRandomSounds() {
+        while(true) {
+            yield return new WaitForSeconds(Random.Range(15, 30));
+            audioSource.clip = audioclips[Random.Range(0, audioclips.Count - 1)];
+            audioSource.Play();
+        }
     }
 
     //Generates reputation bar color
@@ -223,6 +233,8 @@ public class GameManager : MonoBehaviour {
         if(playTime%60 == 0)
         {
             GameFlowManager.GamePhase++;
+            audioSource.clip = gong;
+            audioSource.Play();
 
             if(GameFlowManager.GamePhase == GameFlowState.PhaseMedium) {
                 Destroy(doorMed1);
