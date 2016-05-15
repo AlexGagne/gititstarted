@@ -315,7 +315,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
             if (Wound == PatientWounds.Healthy)
             {
                 GameManager.RemovePatient(this);
-                Destroy(this.gameObject);
+                Destroy(this.transform.parent.gameObject);
             }
 
         }
@@ -443,7 +443,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     player.StopCarrying(this);
                     transportedByPlayer = false;
                     PlayerFlags.isPlayerBeingFollowed = false;
-                    Destroy(this.gameObject);
+                    Destroy(this.transform.parent.gameObject);
                     break;
             }
 
