@@ -12,6 +12,9 @@ public class Patient : GitCharacterController, IEquatable<Patient>
     public int HP = 100;
     public int Calm = 100;
 
+    //Time the patient has existed
+    public int timeExisted = 0;
+
     public bool panicMode = false;
 
     public int healthyCounter = 500;
@@ -523,9 +526,16 @@ public class Patient : GitCharacterController, IEquatable<Patient>
             return;
         }
 
+
+
+        //Patient is only updated at certain intervals
+        timeExisted++;
+        if (timeExisted % gameManager.secondsForUpdates != 0)
+            return;
+
         Calm = Mathf.Clamp(Calm, 0, 100);
 
-        HP -= 11 - Mathf.FloorToInt(Calm / 10.0f);
+        HP -= 8 - Mathf.FloorToInt(Calm / 15f);
         Calm += amountOfCalmLost;
         Calm = Mathf.Clamp(Calm, 0, 100);
 

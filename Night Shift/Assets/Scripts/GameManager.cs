@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviour {
     int reputation;
     int deathCount;
 
+    
     public int curedMoneyReward;
     public int curedRepReward;
     public int deathMoneyPenalty;
@@ -34,6 +35,7 @@ public class GameManager : MonoBehaviour {
 
     //Time management - 60seconds = 1 round
     int playTime;
+    public int secondsForUpdates;
     public GameObject minTic;
     public GameObject hourTic;
 
@@ -175,7 +177,7 @@ public class GameManager : MonoBehaviour {
             }
         }
 
-        //Update patients
+        
         foreach (Patient patient in patients)
         {
             amountOfCalmLost -= 11 - Mathf.FloorToInt(patient.Calm / 10.0f);
@@ -207,6 +209,7 @@ public class GameManager : MonoBehaviour {
 
             patient.UpdateStatsPatient(amountOfCalmLost);
         }
+        
 
         //StateSwitch
         if(playTime%60 == 0)
