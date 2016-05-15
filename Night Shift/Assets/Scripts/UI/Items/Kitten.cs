@@ -9,7 +9,5 @@ public class Kitten : Item
     {
         itemName = "Kitten";
         description = "You know it has reached its petting capacity when it starts clawing back. \n --- \n +50 Calm \n -10 HP";
-        hpMod = -10;
-        calmMod = 50;
     }
 }

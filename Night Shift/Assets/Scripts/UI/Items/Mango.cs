@@ -9,7 +9,5 @@ public class Mango : Item
     {
         itemName = "Mango";
         description = "Man, I'd go for a mango! \n --- \n +25 HP";
-        hpMod = 25;
-        calmMod = 0;
     }
 }

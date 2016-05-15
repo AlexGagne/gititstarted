@@ -9,7 +9,5 @@ public class Snickers : Item
     {
         itemName = "Snickers";
         description = "You look angry... Have a Snickers! \n --- \n +25 Calm";
-        hpMod = 0;
-        calmMod = 25;
     }
 }

@@ -10,9 +10,27 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
     public string description;
     public int hpMod;
     public int calmMod;
+    public int price;
+    public GameManager gameManager;
+
+    public override void OnBeginDrag(PointerEventData eventData)
+    {
+
+        base.OnBeginDrag(eventData);
+
+    }
+
+    public override void OnDrag(PointerEventData eventData)
+    {
+
+        base.OnDrag(eventData);
+
+    }
 
     public override void OnEndDrag(PointerEventData eventData)
     {
+
+        Debug.Log("EndDrag Items called");
         base.OnEndDrag(eventData);
         HideItemDesc();
     }
@@ -36,7 +54,7 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
     {
         GameObject infoZone = GameObject.Find("InfoZone");
         //Set title
-        infoZone.transform.GetChild(0).GetComponent<Text>().text = itemName;
+        infoZone.transform.GetChild(0).GetComponent<Text>().text = itemName + " - " + price + "$";
 
         //Set description
         infoZone.transform.GetChild(1).GetComponent<Text>().text = description;
@@ -45,6 +63,7 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
     void HideItemDesc()
     {
         GameObject infoZone = GameObject.Find("InfoZone");
+
         //Set title
         infoZone.transform.GetChild(0).GetComponent<Text>().text = "";
 
@@ -54,8 +73,16 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
 
     public virtual void UseItem()
     {
-        //Item was used, placeholder not required anymore
-        Destroy(placeholder);
+        if(gameManager.Money <= price)
+        {
+            Debug.Log("Broke");
+            return;
+        }
+
+        //Charge the price
+        gameManager.ChangeMoney(-price);
+
+        //Hide the text
         HideItemDesc();
 
     }
