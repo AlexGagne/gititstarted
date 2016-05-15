@@ -4,12 +4,15 @@ using System;
 
 public class Player : GitCharacterController
 {
+    Patient currentPatient;
+
     // Use this for initialization
     void Start()
     {
         initialize();
         name = "Player";
-        speed = 15.0f;
+        speed = 12.0f;
+        currentPatient = null;
     }
 
     // Update is called once per frame
@@ -26,16 +29,16 @@ public class Player : GitCharacterController
                     target = newTarget;
                 }
             }
-
+            /*
             if (PlayerFlags.isPlayerBeingFollowed)
             {
-                speed = 10.0f;
+                speed = 6.0f;
             }
             else
             {
-                speed = 15.0f;
+                speed = 12.0f;
             }
-
+            */
             PlayerFlags.playerPosition = transform.position;
 
             hackMoveToPosition();
@@ -45,6 +48,18 @@ public class Player : GitCharacterController
             //Because we hate exceptions
             print("Exception " + e.Message);
         }
+    }
+
+    public void StartCarrying(Patient patient)
+    {
+        speed = 6.0f;
+        currentPatient = patient;
+    }
+
+    public void StopCarrying(Patient patient)
+    {
+        speed = 12.0f;
+        currentPatient = null;
     }
 
     private void hackMoveToPosition()

@@ -5,7 +5,7 @@ using System;
 
 public class Patient : GitCharacterController, IEquatable<Patient>
 {
-
+    static Player player;
     public PatientState State;
     public PatientWounds Wound;
 
@@ -49,6 +49,9 @@ public class Patient : GitCharacterController, IEquatable<Patient>
     void Start () {
         initialize();
         name = "Patient";
+
+        if (player == null)
+            player = GameObject.Find("Player").GetComponent<Player>();
 
         id = nextId;
         nextId++;
@@ -192,7 +195,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                 }
             }
 
-            //Client is being transported
+            //Patient is being transported
             else
             {
                 if (firstInitTransportPatient)
@@ -290,6 +293,8 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     if (!PlayerFlags.isPlayerBeingFollowed)
                     {
                         PlayerFlags.isPlayerBeingFollowed = true;
+                        player.StartCarrying(this);
+
                         transportedByPlayer = true;
                         isSeated = false;
                         isChairOccupied[occupiedChairIndex] = false;
@@ -307,6 +312,10 @@ public class Patient : GitCharacterController, IEquatable<Patient>
             }
 
         }
+
+        //***********************************************/
+        //Check if the patient can be deposited someplace
+        //***********************************************/
         else if(transportedByPlayer)
         {
             bool deposited = false;
@@ -424,6 +433,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     Destroy(this.gameObject);
                     break;
             }
+
             if (deposited)
             {
                 State = PatientState.GettingTreated;
@@ -588,4 +598,5 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                 return true;
         return false;
     }
+
 }
