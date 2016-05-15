@@ -11,5 +11,6 @@ public enum TreatmentType
     Vomitorium,
     Surgery,
     Exorcism,
-    Morgue
+    Morgue,
+    Entrance
 }

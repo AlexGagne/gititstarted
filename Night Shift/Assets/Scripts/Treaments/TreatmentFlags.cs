@@ -14,5 +14,6 @@ public static class TreatmentFlags
     public static readonly Vector3 PsychologyPosition = new Vector3(12.0f, 3.5f, -1.0f);
     public static readonly Vector3 HemorhagiePosition = new Vector3(12.0f, -5.0f, -1.0f);
     public static readonly Vector3 ExorcismPosition = new Vector3(0.0f, -12.25f, -1.0f);
+    public static readonly Vector3 EntrancePosition = new Vector3(-22.0f, 1.0f, -1.0f);
 }
  

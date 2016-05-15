@@ -27,6 +27,9 @@ public class Treatment : MonoBehaviour
             case TreatmentType.Morgue:
                 name = "Morgue";
                 break;
+            case TreatmentType.Entrance:
+                name = "Entrance";
+                break;
         }
     }
 }

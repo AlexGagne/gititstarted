@@ -22,9 +22,15 @@ public class Patient : GitCharacterController
     private int panicModeIndex = 0;
 
     private bool transportedByPlayer = false;
-    private bool firstInitTransportPlayer = true;
+    private bool firstInitTransportPatient = true;
 
     private int occupiedChairIndex;
+
+    private bool firstInitHealthyPatient = true;
+
+    private int healthyCounter = 600;
+
+    private bool firstInitCollisionWithTreatment = true;
 
     // Use this for initialization
     void Start () {
@@ -127,43 +133,66 @@ public class Patient : GitCharacterController
 	
 	// Update is called once per frame
 	void Update () {
-        if (id > 4)
+        if (id <= 4)
         {
-            if (!transportedByPlayer)
+            return;
+        }
+        if(Wound == PatientWounds.Healthy)
+        {
+            if (firstInitHealthyPatient)
             {
-                switch (State)
-                {
-                    case PatientState.DoneTreatment:
-                        break;
-                    case PatientState.GettingTreated:
-                        break;
-                    case PatientState.WaitingForTreatment:
-                        GoToAvailableChair();
-                        break;
-                }
+                clearTargets();
+                firstInitHealthyPatient = false;
+            }
+
+            addTarget(TreatmentFlags.EntrancePosition);
+            MoveToPosition();
+        }
+        if (!transportedByPlayer)
+        {
+            switch (State)
+            {
+                case PatientState.GettingTreated:
+                    // Wait for a bit of time
+                    healthyCounter--;
+                    if(healthyCounter <= 0)
+                    {
+                        BecomeHealthy();
+                    }
+                    MoveToPosition();
+                    break;
+                case PatientState.WaitingForTreatment:
+                    GoToAvailableChair();
+                    break;
+            }
+        }
+        else
+        {
+            if (firstInitTransportPatient)
+            {
+                clearTargets();
+                firstInitTransportPatient = false;
+            }
+            if (Wound == PatientWounds.Dead)
+            {
+                transform.position = PlayerFlags.playerPosition;
             }
             else
             {
-                if (firstInitTransportPlayer)
-                {
-                    clearTargets();
-                    firstInitTransportPlayer = false;
-                }
-                if (Wound == PatientWounds.Dead)
-                {
-                    transform.position = PlayerFlags.playerPosition;
-                }
-                else
-                {
-                    addTarget(PlayerFlags.playerPosition);
-                    MoveToPosition();
-                }
+                addTarget(PlayerFlags.playerPosition);
+                MoveToPosition();
             }
         }
         if(Wound == PatientWounds.Exorcism)
         {
             transform.Rotate(new Vector3(0, 0, 2*turnSpeed));
         }
+        /*if (Input.GetMouseButton(1))
+        {
+            var newTarget = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            newTarget.z = transform.position.z;
+            addTarget(newTarget);
+        }*/
     }
 
     private void GoToAvailableChair()
@@ -223,6 +252,10 @@ public class Patient : GitCharacterController
        
         if(nameOfCollided == "Player")
         {
+            /*if(PlayerFlags.IdOfLastClickedPatient != id)
+            {
+                return;
+            }*/
             if (isSeated)
             {
                 if (!PlayerFlags.isPlayerBeingFollowed)
@@ -234,6 +267,14 @@ public class Patient : GitCharacterController
                     speed = 15.0f;
                 }
             }
+        }
+        else if(nameOfCollided == "Entrance")
+        {
+            if (Wound == PatientWounds.Healthy)
+            {
+                Destroy(this.gameObject);
+            }
+
         }
         else if(transportedByPlayer)
         {
@@ -253,9 +294,15 @@ public class Patient : GitCharacterController
 
                     TreatmentFlags.isHemorhagieOccupied = true;
                     deposited = true;
+                    if (firstInitCollisionWithTreatment)
+                    {
+                        clearTargets();
+                        firstInitCollisionWithTreatment = false;
+                    }
+                    addTarget(TreatmentFlags.HemorhagiePosition);
                     break;
                 case "Psychology":
-                    if (Wound == PatientWounds.Psychology)
+                    if (Wound != PatientWounds.Psychology)
                     {
                         return;
                     }
@@ -267,9 +314,15 @@ public class Patient : GitCharacterController
 
                     TreatmentFlags.isPsychologyOccupied = true;
                     deposited = true;
+                    if (firstInitCollisionWithTreatment)
+                    {
+                        clearTargets();
+                        firstInitCollisionWithTreatment = false;
+                    }
+                    addTarget(TreatmentFlags.PsychologyPosition);
                     break;
                 case "Vomitorium":
-                    if (Wound == PatientWounds.Vomitorium)
+                    if (Wound != PatientWounds.Vomitorium)
                     {
                         return;
                     }
@@ -281,9 +334,15 @@ public class Patient : GitCharacterController
 
                     TreatmentFlags.isVomitoriumOccupied = true;
                     deposited = true;
+                    if (firstInitCollisionWithTreatment)
+                    {
+                        clearTargets();
+                        firstInitCollisionWithTreatment = false;
+                    }
+                    addTarget(TreatmentFlags.VomitoriumPosition);
                     break;
                 case "Surgery":
-                    if (Wound == PatientWounds.Surgery)
+                    if (Wound != PatientWounds.Surgery)
                     {
                         return;
                     }
@@ -295,9 +354,15 @@ public class Patient : GitCharacterController
 
                     TreatmentFlags.isSurgeryOccupied = true;
                     deposited = true;
+                    if (firstInitCollisionWithTreatment)
+                    {
+                        clearTargets();
+                        firstInitCollisionWithTreatment = false;
+                    }
+                    addTarget(TreatmentFlags.SurgeryPosition);
                     break;
                 case "Exorcism":
-                    if (Wound == PatientWounds.Exorcism)
+                    if (Wound != PatientWounds.Exorcism)
                     {
                         return;
                     }
@@ -309,9 +374,15 @@ public class Patient : GitCharacterController
 
                     TreatmentFlags.isExorcismOccupied = true;
                     deposited = true;
+                    if (firstInitCollisionWithTreatment)
+                    {
+                        clearTargets();
+                        firstInitCollisionWithTreatment = false;
+                    }
+                    addTarget(TreatmentFlags.ExorcismPosition);
                     break;
                 case "Morgue":
-                    if (Wound == PatientWounds.Dead)
+                    if (Wound != PatientWounds.Dead)
                     {
                         return;
                     }
@@ -328,5 +399,44 @@ public class Patient : GitCharacterController
                 PlayerFlags.isPlayerBeingFollowed = false;
             }
         }
+    }
+
+    private void BecomeHealthy()
+    {
+        var oldWound = Wound;
+        Wound = PatientWounds.Healthy;
+
+        animationController.SetBool("Bleeding", false);
+        animationController.SetBool("Knife", false);
+        animationController.SetBool("Sick", false);
+        animationController.SetBool("Healthy", true);
+        animationController.SetBool("Crazy", false);
+        animationController.SetBool("Dead", false);
+        // The next bool resets the animation
+        animationController.SetBool("Moving", false);
+
+        switch (oldWound)
+        {
+            case PatientWounds.Hemorhagie:
+                TreatmentFlags.isHemorhagieOccupied = false;
+                break;
+            case PatientWounds.Psychology:
+                TreatmentFlags.isPsychologyOccupied = false;
+                break;
+            case PatientWounds.Vomitorium:
+                TreatmentFlags.isVomitoriumOccupied = false;
+                break;
+            case PatientWounds.Surgery:
+                TreatmentFlags.isSurgeryOccupied = false;
+                break;
+            case PatientWounds.Exorcism:
+                TreatmentFlags.isExorcismOccupied = false;
+                break;
+        }
+    }
+    
+    void onMouseDown()
+    {
+        PlayerFlags.IdOfLastClickedPatient = id;
     }
 }
