@@ -21,7 +21,7 @@ namespace Assets.Scripts
         {
             if (canSpawnPatient())
             {
-                var rand = ((int)Random.value * 5000)%6;
+                var rand = (int)(Random.value * 5000) % 6;
                 switch (rand)
                 {
                     case 0:
