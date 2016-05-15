@@ -129,7 +129,7 @@ public class GameManager : MonoBehaviour {
         if (money < 0)
             moneyText.color = Color.red;
         else
-            moneyText.color = Color.black;
+            moneyText.color = Color.white;
 
     }
 
