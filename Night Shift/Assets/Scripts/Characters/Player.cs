@@ -8,7 +8,7 @@ public class Player : GitCharacterController
 
     //TreatmentZone highlights
     public SpriteRenderer[] treatmentZones;
-    Color goTo = new Color(0, 1f, 0.2f, 0.4f);
+    Color goTo = new Color(0.8f, 1f, 0f, 0.4f);
 
 
     // Use this for initialization
