@@ -17,7 +17,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
     public bool panicMode = false;
 
-    public int healthyCounter = 500;
+    public int healthyCounter = 25;
 
     public GameManager gameManager;
 
