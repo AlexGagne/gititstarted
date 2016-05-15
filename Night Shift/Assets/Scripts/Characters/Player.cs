@@ -34,6 +34,7 @@ public class Player : GitCharacterController
                     target = newTarget;
                 }
             }
+
             /*
             if (PlayerFlags.isPlayerBeingFollowed)
             {
@@ -57,7 +58,7 @@ public class Player : GitCharacterController
 
     public void StartCarrying(Patient patient)
     {
-        speed = 6.0f;
+        speed = 8.0f;
         currentPatient = patient;
 
         switch (patient.Wound)
@@ -120,7 +121,7 @@ public class Player : GitCharacterController
                     transform.position = Vector3.MoveTowards(transform.position, nextPos, speed * Time.deltaTime);
                     if (name == "Player")
                     {
-                        print("Moved: " + Vector3.Magnitude(oldPos - transform.position));
+
                     }
 
                 }

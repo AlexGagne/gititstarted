@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour {
         audioSource.Play();
         //DEBUG***********************************/
         money = 20;
-        reputation = 100;
+        reputation = 70;
         deathCount = 0;
         playTime = 0;
         UpdateMoneyDisplay();
@@ -183,10 +183,10 @@ public class GameManager : MonoBehaviour {
         
         foreach (Patient patient in patients)
         {
-            amountOfCalmLost -= 11 - Mathf.FloorToInt(patient.Calm / 10.0f);
+            amountOfCalmLost += GameManager.StatLost(reputation);
             amountOfCalmLost -= amountOfCorpses;
-            amountOfCalmLost -= 5 - Mathf.FloorToInt(reputation / 10.0f);
             patient.Calm = Mathf.Clamp(patient.Calm, 0, 100);
+
             switch (patient.Wound)
             {
                 case PatientWounds.Healthy:
@@ -194,19 +194,19 @@ public class GameManager : MonoBehaviour {
                 case PatientWounds.Dead:
                     continue;
                 case PatientWounds.Hemorhagie:
-                    amountOfCalmLost -= hemorhagieCalmLost;
+                    amountOfCalmLost += hemorhagieCalmLost;
                     break;
                 case PatientWounds.Psychology:
-                    amountOfCalmLost -= psychologyCalmLost;
+                    amountOfCalmLost += psychologyCalmLost;
                     break;
                 case PatientWounds.Vomitorium:
-                    amountOfCalmLost -= vomitoriumCalmLost;
+                    amountOfCalmLost += vomitoriumCalmLost;
                     break;
                 case PatientWounds.Surgery:
-                    amountOfCalmLost -= surgeryCalmLost;
+                    amountOfCalmLost += surgeryCalmLost;
                     break;
                 case PatientWounds.Exorcism:
-                    amountOfCalmLost -= exorcismCalmLost;
+                    amountOfCalmLost += exorcismCalmLost;
                     break;
             }
 
@@ -232,6 +232,23 @@ public class GameManager : MonoBehaviour {
         patients.Remove(patient);
     }
 
+    //Takes independant value and passes it in StatLost function
+    static public int StatLost(int value)
+    {
+        if (value <= 5)
+            return -60;
+        else if (value <= 20)
+            return -30;
+        else if (value <= 40)
+            return -15;
+        else if (value <= 60)
+            return -10;
+        else if (value <= 80)
+            return -5;
+        else
+            return -2;
+    }
+
     //Is called when a lose condition is met (reputation of 0, too much debt)
     void LoseGame()
     {
@@ -246,17 +263,23 @@ public class GameManager : MonoBehaviour {
 
     public static void disableCanvasForPatients()
     {
+        /*
         foreach(Patient patient in patients)
         {
             (patient.transform.GetChild(0)).position = new Vector3(-1000, -1000, -1000);
         }
+        */
     }
 
     public static void enableCanvasForPatients()
     {
+        /*
         foreach (Patient patient in patients)
         {
             (patient.transform.GetChild(0)).position = patient.transform.position;
         }
+        */
     }
+
+   
 }

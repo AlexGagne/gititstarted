@@ -38,7 +38,8 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
 
     public void OnPointerClick(PointerEventData eventData)
     {
-        PlayerFlags.IdOfLastClickedPatient = currentPatient.ID;
+        if(currentPatient != null)
+            PlayerFlags.IdOfLastClickedPatient = currentPatient.ID;
     }
 
     public void OnPointerEnter(PointerEventData eventData)
@@ -60,11 +61,11 @@ public class DropZone : MonoBehaviour, IDropHandler, IPointerEnterHandler, IPoin
         Patient p = transform.parent.parent.gameObject.GetComponent<Patient>();
         if(p != null)
         {
-            if (p == currentPatient)
-            {
+            //if (p == currentPatient)
+            //{
                 GetComponent<Image>().color = unselected;
                 currentPatient = null;
-            }
+            //}
                 
         }
     }
