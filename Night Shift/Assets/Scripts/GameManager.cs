@@ -31,6 +31,11 @@ public class GameManager : MonoBehaviour {
     public Text deathText;
     public GameObject repBar;
 
+    // Black and yellow doors
+    public GameObject doorMed1;
+    public GameObject doorMed2;
+    public GameObject doorHard;
+
     //IconLinks
     public GameObject[] items;
 
@@ -218,6 +223,15 @@ public class GameManager : MonoBehaviour {
         if(playTime%60 == 0)
         {
             GameFlowManager.GamePhase++;
+
+            if(GameFlowManager.GamePhase == GameFlowState.PhaseMedium) {
+                Destroy(doorMed1);
+                Destroy(doorMed2);
+            }
+            if (GameFlowManager.GamePhase == GameFlowState.PhaseHard) {
+                Destroy(doorHard);
+            }
+
         }
     }
 
