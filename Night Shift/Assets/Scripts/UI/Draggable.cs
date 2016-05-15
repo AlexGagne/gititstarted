@@ -39,8 +39,7 @@ public abstract class Draggable : MonoBehaviour, IDragHandler, IBeginDragHandler
     }
 
     public virtual void OnEndDrag(PointerEventData eventData)
-    {
-        
+    {        
         this.transform.SetParent(parentToReturnTo);
         this.transform.localScale = new Vector3(0.8f, 0.8f, 0.8f);
         GetComponent<CanvasGroup>().blocksRaycasts = true;

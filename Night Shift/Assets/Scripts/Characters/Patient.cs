@@ -203,11 +203,11 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                     clearTargets();
                     firstInitTransportPatient = false;
                 }
-                if (Wound == PatientWounds.Dead)
+                if (Wound == PatientWounds.Dead && transportedByPlayer)
                 {
                     transform.position = PlayerFlags.playerPosition;
                 }
-                else
+                else if (Wound != PatientWounds.Dead)
                 {
                     addTarget(PlayerFlags.playerPosition);
                     MoveToPosition();
@@ -284,13 +284,13 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         var nameOfCollided = coll.gameObject.name;
        
         //Patient collided with the player, and was seated
-        if(nameOfCollided == "Player")
+        if(nameOfCollided == "Player" && !transportedByPlayer)
         {
             if(PlayerFlags.IdOfLastClickedPatient == id)
             {
-                if (isSeated)
+                if (!PlayerFlags.isPlayerBeingFollowed)
                 {
-                    if (!PlayerFlags.isPlayerBeingFollowed)
+                    if (isSeated)
                     {
                         PlayerFlags.isPlayerBeingFollowed = true;
                         player.StartCarrying(this);
@@ -299,6 +299,13 @@ public class Patient : GitCharacterController, IEquatable<Patient>
                         isSeated = false;
                         isChairOccupied[occupiedChairIndex] = false;
                         speed = 20.0f;
+                    }
+                    else if(Wound == PatientWounds.Dead)
+                    {
+                        PlayerFlags.isPlayerBeingFollowed = true;
+                        player.StartCarrying(this);
+
+                        transportedByPlayer = true;
                     }
                 }
             }            
