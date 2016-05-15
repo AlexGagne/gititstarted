@@ -1,15 +1,21 @@
 ﻿using UnityEngine;
-using System.Collections;
+using System.Collections.Generic;
 
 namespace Assets.Scripts
 {
     public class BasePatientSpawner : MonoBehaviour {
         
-        public GameObject patientKnifePrefab;
-        public GameObject patientCrazyPrefab;
-        public GameObject patientBloodPrefab;
-        public GameObject patientVomitPrefab;
-        public GameObject patientPossessedPrefab;
+        public GameObject StevePatientKnifePrefab;
+        public GameObject StevePatientCrazyPrefab;
+        public GameObject StevePatientBloodPrefab;
+        public GameObject StevePatientVomitPrefab;
+        public GameObject StevePatientPossessedPrefab;
+
+        public GameObject AdamPatientKnifePrefab;
+        public GameObject AdamPatientCrazyPrefab;
+        public GameObject AdamPatientBloodPrefab;
+        public GameObject AdamPatientVomitPrefab;
+        public GameObject AdamPatientPossessedPrefab;
 
         public GameManager gameManager;
 

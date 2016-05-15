@@ -10,9 +10,7 @@ namespace Assets.Scripts
 
         private int randomFramesBeforeSpawn;
 
-        private bool firstExplosionOfPatients = true;
-
-        private int numberOfExplosionPatientsSpawned;
+        private int numberOfExplosionPatientsSpawned = 0;
 
         // Use this for initialization
         void Start()
@@ -36,15 +34,16 @@ namespace Assets.Scripts
                     case GameFlowState.PhaseHard:
                         break;
                     case GameFlowState.LastPhase:
-                        if (firstExplosionOfPatients)
+                        if(numberOfExplosionPatientsSpawned < 10)
                         {
-                            for(int i = 0; i < 10; i++)
-                            {
-                                createRandomPatient();
-                            }
-                            firstExplosionOfPatients = false;
+                            createRandomPatient();
+                            randomFramesBeforeSpawn = 30;
+                            numberOfExplosionPatientsSpawned++;
                         }
-                        createRandomPatient();
+                        else
+                        {
+                            createRandomPatient();
+                        }
                         
                         break;
                     case GameFlowState.End:
@@ -69,27 +68,42 @@ namespace Assets.Scripts
 
         private void createRandomPatient()
         {
-            var rand = (int)(Random.Range(0, 5));
+            var rand = (int)(Random.Range(0, 10));
             Patient patient = null;
             switch (rand)
             {
                 case 0:
-                    patient = (Instantiate(patientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    patient = (Instantiate(StevePatientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 1:
-                    patient = (Instantiate(patientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    patient = (Instantiate(StevePatientKnifePrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 2:
-                    patient = (Instantiate(patientKnifePrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    patient = (Instantiate(StevePatientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 3:
-                    patient = (Instantiate(patientPossessedPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    patient = (Instantiate(StevePatientVomitPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 4:
-                    patient = (Instantiate(patientVomitPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    patient = (Instantiate(StevePatientPossessedPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    break;
+                case 5:
+                    patient = (Instantiate(AdamPatientKnifePrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    break;
+                case 6:
+                    patient = (Instantiate(AdamPatientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    break;
+                case 7:
+                    patient = (Instantiate(AdamPatientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    break;
+                case 8:
+                    patient = (Instantiate(AdamPatientVomitPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    break;
+                case 9:
+                    patient = (Instantiate(AdamPatientPossessedPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
             }
-            if(patient != null && gameManager!=null)
+            if(patient != null && gameManager != null)
             {
                 patient.gameManager = gameManager;
                 //Add Patient to patient list

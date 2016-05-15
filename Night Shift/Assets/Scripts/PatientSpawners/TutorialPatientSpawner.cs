@@ -8,8 +8,11 @@ namespace Assets.Scripts
         public bool canSpawnPatients = false;
 
 
-        public GameObject patientTutorialBloodPrefab;
-        public GameObject patientTutorialCrazyPrefab;
+        public GameObject StevePatientTutorialBloodPrefab;
+        public GameObject StevePatientTutorialCrazyPrefab;
+
+        public GameObject AdamTutorialPatientCrazyPrefab;
+        public GameObject AdamTutorialPatientBloodPrefab;
 
         // Use this for initialization
         void Start()
@@ -47,15 +50,21 @@ namespace Assets.Scripts
 
         private void createEasyRandomPatient()
         {
-            var rand = (int)(Random.Range(0, 2));
+            var rand = (int)(Random.Range(0, 4));
             Patient patient = null;
             switch (rand)
             {
                 case 0:
-                    patient = (Instantiate(patientTutorialBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    patient = (Instantiate(StevePatientTutorialBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
                 case 1:
-                    patient = (Instantiate(patientTutorialCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    patient = (Instantiate(StevePatientTutorialCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    break;
+                case 2:
+                    patient = (Instantiate(AdamTutorialPatientCrazyPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
+                    break;
+                case 3:
+                    patient = (Instantiate(AdamTutorialPatientBloodPrefab, transform.position, Quaternion.identity) as GameObject).transform.GetChild(0).gameObject.GetComponent<Patient>();
                     break;
             }
             if (patient != null && gameManager != null)

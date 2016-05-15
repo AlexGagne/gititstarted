@@ -155,10 +155,6 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 	
 	// Update is called once per frame
 	void Update () {
-        if (id <= 4)
-        {
-            return;
-        }
         if(Wound == PatientWounds.Healthy)
         {
             if (firstInitHealthyPatient)
