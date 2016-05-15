@@ -86,6 +86,8 @@ public abstract class Item : Draggable, IPointerEnterHandler, IPointerExitHandle
         HideItemDesc();
 
         //Affect the patient
+        patient.HP += hpMod;
+        patient.Calm += calmMod;
         
 
     }

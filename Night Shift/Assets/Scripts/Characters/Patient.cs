@@ -525,9 +525,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
         {
             return;
         }
-
-
-
+        
         //Patient is only updated at certain intervals
         timeExisted++;
         if (timeExisted % gameManager.secondsForUpdates != 0)

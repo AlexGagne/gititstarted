@@ -43,9 +43,9 @@ public class GameManager : MonoBehaviour {
 	void Start () {
 
         //DEBUG***********************************/
-        money = 12;
-        reputation = 33;
-        deathCount = 4;
+        money = 20;
+        reputation = 100;
+        deathCount = 0;
         playTime = 0;
         UpdateMoneyDisplay();
         UpdateDeathDisplay();

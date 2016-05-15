@@ -16,7 +16,7 @@ public class StatBar : MonoBehaviour {
         //Move bars
         gameObject.transform.position = gameObject.transform.parent.GetChild(0).position + new Vector3(0, radius);
 
-        //Scale bar - radius 0.8 - hp, else its a calm bar --Bad programming
+        //Scale bar - radius 0.8 - hp, else its a calm bar -- Bad programming
         if (radius == 0.85f)
             gameObject.transform.localScale = new Vector3(patient.HP / 100f, 1);
         else
