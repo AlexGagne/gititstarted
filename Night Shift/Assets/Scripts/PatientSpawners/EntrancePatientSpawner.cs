@@ -9,10 +9,10 @@ namespace Assets.Scripts
         public int TutorialMaxFramesBeforeSpawn = 540;
 
         public int EasyMinFramesBeforeSpawn = 240;
-        public int EasyMaxFramesBeforeSpawn = 480;
+        public int EasyMaxFramesBeforeSpawn = 360;
 
-        public int MediumMinFramesBeforeSpawn = 180;
-        public int MediumMaxFramesBeforeSpawn = 360;
+        public int MediumMinFramesBeforeSpawn = 240;
+        public int MediumMaxFramesBeforeSpawn = 300;
 
         public int HardMinFramesBeforeSpawn = 180;
         public int HardMaxFramesBeforeSpawn = 300;
