@@ -617,7 +617,8 @@ public class Patient : GitCharacterController, IEquatable<Patient>
 
         Calm = Mathf.Clamp(Calm, 0, 100);
 
-        HP -= 8 - Mathf.FloorToInt(Calm / 15f);
+        HP += GameManager.StatLost(Calm);
+
         Calm += amountOfCalmLost;
         Calm = Mathf.Clamp(Calm, 0, 100);
 
