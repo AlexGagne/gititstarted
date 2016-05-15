@@ -12,6 +12,8 @@ namespace Assets.Scripts
 
         private bool firstExplosionOfPatients = true;
 
+        private int numberOfExplosionPatientsSpawned;
+
         // Use this for initialization
         void Start()
         {

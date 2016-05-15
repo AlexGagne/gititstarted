@@ -33,18 +33,22 @@ namespace Assets.Scripts
                 case GameFlowState.PhaseEasy:
                     currentMinFramesBeforeSpawn = EasyMinFramesBeforeSpawn;
                     currentMaxFramesBeforeSpawn = EasyMaxFramesBeforeSpawn;
+                    randomFramesBeforeSpawn = (int) Random.Range(currentMinFramesBeforeSpawn, currentMaxFramesBeforeSpawn);
                     break;
                 case GameFlowState.PhaseMedium:
                     currentMinFramesBeforeSpawn = MediumMinFramesBeforeSpawn;
                     currentMaxFramesBeforeSpawn = MediumMaxFramesBeforeSpawn;
+                    randomFramesBeforeSpawn = (int)Random.Range(currentMinFramesBeforeSpawn, currentMaxFramesBeforeSpawn);
                     break;
                 case GameFlowState.PhaseHard:
                     currentMinFramesBeforeSpawn = HardMinFramesBeforeSpawn;
                     currentMaxFramesBeforeSpawn = HardMaxFramesBeforeSpawn;
+                    randomFramesBeforeSpawn = (int)Random.Range(currentMinFramesBeforeSpawn, currentMaxFramesBeforeSpawn);
                     break;
                 case GameFlowState.LastPhase:
                     currentMinFramesBeforeSpawn = LastMinFramesBeforeSpawn;
                     currentMaxFramesBeforeSpawn = LastMaxFramesBeforeSpawn;
+                    randomFramesBeforeSpawn = (int)Random.Range(currentMinFramesBeforeSpawn, currentMaxFramesBeforeSpawn);
                     break;
                 case GameFlowState.End:
                     break;

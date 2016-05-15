@@ -236,7 +236,7 @@ public class Patient : GitCharacterController, IEquatable<Patient>
             }
         }
 
-        if (reachedDestination)
+        if (reachedDestination && isInAChairPosition())
         {
             isSeated = true;
         }
@@ -549,5 +549,20 @@ public class Patient : GitCharacterController, IEquatable<Patient>
     public void UpdateBarDisplay()
     {
 
+    }
+
+    private bool isInAChairPosition()
+    {
+        bool inAChair = false;
+
+        foreach (Vector3 chair in chairPositions)
+        {
+            if(chair == transform.position)
+            {
+                inAChair = true;
+            }
+        }
+
+        return inAChair;
     }
 }
