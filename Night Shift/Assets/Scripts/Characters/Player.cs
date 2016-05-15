@@ -7,6 +7,7 @@ public class Player : GitCharacterController
     void Start()
     {
         initialize();
+        name = "Player";
         speed = 20.0f;
     }
 
@@ -21,6 +22,17 @@ public class Player : GitCharacterController
             addTarget(newTarget);
         }
 
+        if (PlayerFlags.isPlayerBeingFollowed)
+        {
+            speed = 5.0f;
+        }
+        else
+        {
+            speed = 20.0f;
+        }            
+
         MoveToPosition();
+
+        PlayerFlags.playerPosition = transform.position;
     }
 }

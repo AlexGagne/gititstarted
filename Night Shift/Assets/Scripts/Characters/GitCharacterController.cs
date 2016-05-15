@@ -10,12 +10,14 @@ public abstract class GitCharacterController : MonoBehaviour {
     protected PathFinding pathFinding;
     protected List<Node> path = new List<Node>();
     protected int nextPosition = 0;
-
-    protected 
-    
+        
     private bool nextTarget = true;
 
     protected Animator animationController;
+
+    private bool changeDestination = false;
+
+    protected bool reachedDestination = false;
 
     // Use this for initialization
     void Start () {
@@ -24,6 +26,15 @@ public abstract class GitCharacterController : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
+    }
+
+    void OnCollisionEnter2D(Collision2D coll)
+    {
+        collidedWith(coll);
+    }
+
+    protected virtual void collidedWith(Collision2D coll)
+    {
     }
 
     protected void initialize()
@@ -49,7 +60,17 @@ public abstract class GitCharacterController : MonoBehaviour {
 
     protected void addTarget(Vector3 newTarget)
     {
-        targetQueue.Enqueue(newTarget);
+        if(name == "Player")
+        {
+            targetQueue.Clear();
+            targetQueue.Enqueue(newTarget);
+            changeDestination = true;
+            animationController.SetBool("Moving", false);
+        }
+        if (targetQueue.Count <= 5)
+        {
+            targetQueue.Enqueue(newTarget);
+        }
     }
 
     protected Vector3 getNextTarget()
@@ -67,15 +88,11 @@ public abstract class GitCharacterController : MonoBehaviour {
         nextTarget = true;
     }
 
-    protected virtual void collidedWith(GameObject collidedObject)
-    {
-    }
-
     protected void MoveToPosition()
     {
         Vector3 destination = target;
 
-        if (nextTarget)
+        if (nextTarget || changeDestination)
         {
             destination = getNextTarget();
             if (!destination.Equals(new Vector3(-1000, -1000, -1000)))
@@ -83,6 +100,7 @@ public abstract class GitCharacterController : MonoBehaviour {
                 path = pathFinding.FindPath(transform.position, destination);
                 if (path.Count != 0)
                 {
+                    reachedDestination = false;
                     nextTarget = false;
                 }
             }
@@ -122,6 +140,7 @@ public abstract class GitCharacterController : MonoBehaviour {
                 nextPosition = 0;
                 nextTarget = true;
                 animationController.SetBool("Moving", false);
+                reachedDestination = true;
             }
         }
     }
